@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
 	private float minMoveDistance = .05f; // How far the mouse must be from the player before it will start moving
 	private Vector3 mousePositionInWorld; // Mouse screen position transposed onto the game world
 	private CharacterController controller;
+	private Vector3 lastGroundedPosition;
 
 	private Animator animator; // Handles animations
 	private float runAnimSpeed = .5f; // How fast the player has to be moving to start the running animation
@@ -100,6 +101,7 @@ public class Player : MonoBehaviour
 		// Handle gravity and hovering
 		if (controller.isGrounded)
 		{
+			lastGroundedPosition = transform.position;
 			verticalVelocity = -gravity * Time.deltaTime;
 			// Handle Jumping
 			if (canJump && Input.GetButtonDown("Jump"))
@@ -145,11 +147,17 @@ public class Player : MonoBehaviour
 			animator.SetBool("Walk", false);
 		}
 
+		// Handle the player falling off the screen
+		if (transform.position.y <= -10)
+		{
+			transform.position = lastGroundedPosition;
+		}
+
 		/* DEBUG SECTION */
 		//Debug.Log(moveVector);
-		//Debug.DrawRay(transform.position, transform.up.normalized, Color.green);
-		//Debug.DrawRay(transform.position, transform.forward.normalized, Color.blue);
-		//Debug.DrawRay(transform.position, transform.right.normalized, Color.red);
+		Debug.DrawRay(transform.position, transform.up.normalized, Color.green);
+		Debug.DrawRay(transform.position, transform.forward.normalized, Color.blue);
+		Debug.DrawRay(transform.position, transform.right.normalized, Color.red);
 	}
 
 	// Instantiate a shootable game object and invoke its Shoot() function
