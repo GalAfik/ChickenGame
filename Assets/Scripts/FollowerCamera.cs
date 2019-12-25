@@ -13,7 +13,7 @@ public class FollowerCamera : MonoBehaviour
 	{
 		// Manually set the position of the camera
 		transform.position = objectToFollow.transform.position;
-		transform.position += new Vector3(0, 4, -3);
+		transform.Translate(0, 4, -3, Space.World);
 		// Get the relative position of the camera to the player
 		cameraOffset = transform.position - objectToFollow.transform.position;
 	}

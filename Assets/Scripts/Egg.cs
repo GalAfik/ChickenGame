@@ -7,11 +7,8 @@ public class Egg : MonoBehaviour, Shootable
 	public GameObject playerObject;
 	public float maxDistanceFromPlayer = 30f;
 
-	protected new Rigidbody rigidbody;
-
 	void Awake()
     {
-		rigidbody = GetComponent<Rigidbody>();
 		playerObject = GameObject.FindWithTag("Player");
 	}
 
@@ -32,6 +29,6 @@ public class Egg : MonoBehaviour, Shootable
 	public void Shoot(Vector3 shootVector, float shootDistance)
 	{
 		// Set a force in the direction the egg is shot when it's created
-		rigidbody.AddForce(shootVector.normalized * shootDistance, ForceMode.Impulse);
+		GetComponent<Rigidbody>().AddForce(shootVector.normalized * shootDistance, ForceMode.Impulse);
 	}
 }

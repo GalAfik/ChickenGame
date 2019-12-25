@@ -52,7 +52,8 @@ public class Player : MonoBehaviour
 	void Update()
 	{
 		// Reset animation variables
-		ResetAnimation();
+		animator.SetBool("Run", false);
+		animator.SetBool("Walk", false);
 
 		// Create an invisible plane, centered on the player object, parallel to the "ground" to intersect the mouse ray with
 		RaycastHit objectUnderPlayer;
@@ -144,18 +145,11 @@ public class Player : MonoBehaviour
 			animator.SetBool("Walk", false);
 		}
 
-
 		/* DEBUG SECTION */
+		//Debug.Log(moveVector);
 		//Debug.DrawRay(transform.position, transform.up.normalized, Color.green);
 		//Debug.DrawRay(transform.position, transform.forward.normalized, Color.blue);
 		//Debug.DrawRay(transform.position, transform.right.normalized, Color.red);
-	}
-
-	// Set all animation variables to false to be recalculated in Update()
-	void ResetAnimation()
-	{
-		animator.SetBool("Run", false);
-		animator.SetBool("Walk", false);
 	}
 
 	// Instantiate a shootable game object and invoke its Shoot() function
