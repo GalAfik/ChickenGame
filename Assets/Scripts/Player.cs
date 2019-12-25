@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-	public float maxSpeed = 3f;
-	public float acceleration = 6f; // How fast the player character should start moving
-	public float deceleration = 10f; // How fast the player character should stop when not moving
+	public float maxSpeed = 4f;
+	public float acceleration = 10f; // How fast the player character should start moving
+	public float deceleration = 4f; // How fast the player character should stop when not moving
 	public float gravity = 20f; // How fast the player should fall to the ground when not grounded
 	public float glidingGravity = 3f; // How fast the player should fall when gliding
 	public float jumpSpeed = 5f; // How much force to apply to the player when they jump
@@ -56,42 +56,34 @@ public class Player : MonoBehaviour
 		animator.SetBool("Run", false);
 		animator.SetBool("Walk", false);
 
+		// Figure out the ground plane
 		// Create an invisible plane, centered on the player object, parallel to the "ground" to intersect the mouse ray with
 		RaycastHit objectUnderPlayer;
 		Plane plane;
 		float distanceOfGroundUnderPlayer = 0.1f;
 		if (Physics.Raycast(transform.position, Vector3.down, out objectUnderPlayer, distanceOfGroundUnderPlayer))
-		{
 			plane = new Plane(objectUnderPlayer.normal, transform.position);
-		}
-		else // Hovering above the ground
-		{
-			plane = new Plane(Vector3.up, transform.position);
-		}
+		else plane = new Plane(Vector3.up, transform.position);// Hovering above the ground
 
 		// Raycast out to the plane to determine where the mouse is in the world
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		float ent = 100.0f;
 		if (plane.Raycast(ray, out ent)) mousePositionInWorld = ray.GetPoint(ent);
-		// Vector pointing from the player to the mouse's position
-		Vector3 lookVector = mousePositionInWorld - transform.position;
+		Vector3 lookVector = mousePositionInWorld - transform.position; // Vector pointing from the player to the mouse's position
 
 		// Make sure the mouse is at least a small distance from the player to start moving and looking -- reduces stuttering
 		if (lookVector.magnitude >= minMoveDistance)
 		{
-			// Rotate transform to look toward the mouse relative to this object
-			transform.forward = lookVector;
-
+			// Rotate to look at the mouse
+			transform.LookAt(mousePositionInWorld); //transform.forward = lookVector;
 			// Handle forward acceleration
-			moveVector += lookVector.normalized * acceleration * Time.deltaTime;
+			if (!Input.GetMouseButton(1))
+				moveVector += lookVector.normalized * acceleration * Time.deltaTime;
 		}
 
 		// Freeze chicken in place if right mouse button is held down
 		if (Input.GetMouseButton(1))
-		{
-			// Slow down using deceleration
-			moveVector -= moveVector.normalized * deceleration * Time.deltaTime;
-		}
+			moveVector -= moveVector.normalized * deceleration * Time.deltaTime; // Slow down using deceleration
 
 		// Ensure that velocity does not excede max speed
 		float velocity = Mathf.Abs(Vector3.Dot(moveVector, transform.forward)); // Has to account only for hoizontal velocity and ignore vertical vel.
@@ -103,23 +95,13 @@ public class Player : MonoBehaviour
 		{
 			lastGroundedPosition = transform.position;
 			verticalVelocity = -gravity * Time.deltaTime;
-			// Handle Jumping
-			if (canJump && Input.GetButtonDown("Jump"))
-			{
-				verticalVelocity = jumpSpeed;
-			}
+			if (canJump && Input.GetButtonDown("Jump")) verticalVelocity = jumpSpeed; // Handle Jumping
 		}
 		else
 		{
 			// Handle gliding - only when moving toward the ground and holding the jump button
-			if (canGlide && Input.GetButton("Jump") && moveVector.y < 0)
-			{
-				verticalVelocity -= glidingGravity * Time.deltaTime;
-			}
-			else
-			{
-				verticalVelocity -= gravity * Time.deltaTime;
-			}
+			if (canGlide && Input.GetButton("Jump") && moveVector.y < 0) verticalVelocity -= glidingGravity * Time.deltaTime;
+			else verticalVelocity -= gravity * Time.deltaTime;
 		}
 
 		// Finally, apply the moveVector to the player controller
@@ -127,20 +109,11 @@ public class Player : MonoBehaviour
 		controller.Move(moveVector * Time.deltaTime);
 
 		// Check for click input to handle egg shooting mechanic
-		if (canShoot && Input.GetMouseButtonDown(0))
-		{
-			Shoot(lookVector);
-		}
+		if (canShoot && Input.GetMouseButtonDown(0)) Shoot(lookVector);
 
 		// Animation variables
-		if (velocity >= runAnimSpeed || !controller.isGrounded)
-		{
-			animator.SetBool("Run", true);
-		}
-		else if (velocity > 0)
-		{
-			animator.SetBool("Walk", true);
-		}
+		if (velocity >= runAnimSpeed || !controller.isGrounded) animator.SetBool("Run", true);
+		else if (velocity > 0) animator.SetBool("Walk", true);
 		else
 		{
 			animator.SetBool("Run", false);
@@ -148,10 +121,7 @@ public class Player : MonoBehaviour
 		}
 
 		// Handle the player falling off the screen
-		if (transform.position.y <= -10)
-		{
-			transform.position = lastGroundedPosition;
-		}
+		if (transform.position.y <= -10) transform.position = lastGroundedPosition;
 
 		/* DEBUG SECTION */
 		//Debug.Log(moveVector);
