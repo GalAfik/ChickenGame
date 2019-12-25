@@ -1,0 +1,171 @@
+fileFormatVersion: 2
+guid: 6aaa8741e1d4f46d8a73257685372428
+timeCreated: 1502920140
+licenseType: Store
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Base
+    100004: Button1
+    100006: Button10
+    100008: Button11
+    100010: Button2
+    100012: Button3
+    100014: Button4
+    100016: Button5
+    100018: Button6
+    100020: Button7
+    100022: Button8
+    100024: Button9
+    100026: PanelBase
+    100028: Screen
+    400000: //RootNode
+    400002: Base
+    400004: Button1
+    400006: Button10
+    400008: Button11
+    400010: Button2
+    400012: Button3
+    400014: Button4
+    400016: Button5
+    400018: Button6
+    400020: Button7
+    400022: Button8
+    400024: Button9
+    400026: PanelBase
+    400028: Screen
+    2300000: //RootNode
+    2300002: Base
+    2300004: Button1
+    2300006: Button10
+    2300008: Button11
+    2300010: Button2
+    2300012: Button3
+    2300014: Button4
+    2300016: Button5
+    2300018: Button6
+    2300020: Button7
+    2300022: Button8
+    2300024: Button9
+    2300026: PanelBase
+    2300028: Screen
+    3300000: //RootNode
+    3300002: Base
+    3300004: Button1
+    3300006: Button10
+    3300008: Button11
+    3300010: Button2
+    3300012: Button3
+    3300014: Button4
+    3300016: Button5
+    3300018: Button6
+    3300020: Button7
+    3300022: Button8
+    3300024: Button9
+    3300026: PanelBase
+    3300028: Screen
+    4300000: Button10
+    4300002: Base
+    4300004: Screen
+    4300006: Button9
+    4300008: Button2
+    4300010: Button1
+    4300012: Button3
+    4300014: Button4
+    4300016: Button6
+    4300018: Button5
+    4300020: Button7
+    4300022: Button8
+    4300024: Button11
+    4300026: PanelBase
+    6400000: //RootNode
+    6400002: Base
+    6400004: Button1
+    6400006: Button10
+    6400008: Button11
+    6400010: Button2
+    6400012: Button3
+    6400014: Button4
+    6400016: Button5
+    6400018: Button6
+    6400020: Button7
+    6400022: Button8
+    6400024: Button9
+    6400026: PanelBase
+    6400028: Screen
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

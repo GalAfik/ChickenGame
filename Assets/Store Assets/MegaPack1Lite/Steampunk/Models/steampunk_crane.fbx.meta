@@ -1,0 +1,123 @@
+fileFormatVersion: 2
+guid: acfa514cce4ad4311a21fba87d7d01d7
+timeCreated: 1521823723
+licenseType: Store
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Crane_Base
+    100002: Crane_Hook
+    100004: Crane_Platform
+    100006: Crane_Rope
+    100008: Crane_Rope_hold
+    100010: Crane_RPulley
+    100012: Crane_Wheel
+    100014: //RootNode
+    400000: Crane_Base
+    400002: Crane_Hook
+    400004: Crane_Platform
+    400006: Crane_Rope
+    400008: Crane_Rope_hold
+    400010: Crane_RPulley
+    400012: Crane_Wheel
+    400014: //RootNode
+    2100000: Steampunk_Iron
+    2100002: Steampunk_Bronze
+    2100004: Steampunk_Wood
+    2100006: Steampunk_Rope
+    2300000: Crane_Base
+    2300002: Crane_Hook
+    2300004: Crane_Platform
+    2300006: Crane_Rope
+    2300008: Crane_Rope_hold
+    2300010: Crane_RPulley
+    2300012: Crane_Wheel
+    3300000: Crane_Base
+    3300002: Crane_Hook
+    3300004: Crane_Platform
+    3300006: Crane_Rope
+    3300008: Crane_Rope_hold
+    3300010: Crane_RPulley
+    3300012: Crane_Wheel
+    4300000: Crane_Base
+    4300002: Crane_Hook
+    4300004: Crane_Platform
+    4300006: Crane_Rope
+    4300008: Crane_Rope_hold
+    4300010: Crane_RPulley
+    4300012: Crane_Wheel
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

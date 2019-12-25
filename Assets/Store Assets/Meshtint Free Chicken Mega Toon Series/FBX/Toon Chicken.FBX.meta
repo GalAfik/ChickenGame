@@ -1,0 +1,142 @@
+fileFormatVersion: 2
+guid: d623cd35a78380d4eb0457c4e483abed
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Rig
+    100004: RigHead
+    100006: RigLArm1
+    100008: RigLArm2
+    100010: RigLLeg1
+    100012: RigLLeg2
+    100014: RigLLegAnkle
+    100016: RigLLegFoot1
+    100018: RigLLegPlatform
+    100020: RigNeck
+    100022: RigPelvis
+    100024: RigRArm1
+    100026: RigRArm2
+    100028: RigRibcage
+    100030: RigRLeg1
+    100032: RigRLeg2
+    100034: RigRLegAnkle
+    100036: RigRLegFoot1
+    100038: RigRLegPlatform
+    100040: RigSpine
+    100042: RigTail1
+    100044: RigTail2
+    100046: Toon Chicken
+    400000: //RootNode
+    400002: Rig
+    400004: RigHead
+    400006: RigLArm1
+    400008: RigLArm2
+    400010: RigLLeg1
+    400012: RigLLeg2
+    400014: RigLLegAnkle
+    400016: RigLLegFoot1
+    400018: RigLLegPlatform
+    400020: RigNeck
+    400022: RigPelvis
+    400024: RigRArm1
+    400026: RigRArm2
+    400028: RigRibcage
+    400030: RigRLeg1
+    400032: RigRLeg2
+    400034: RigRLegAnkle
+    400036: RigRLegFoot1
+    400038: RigRLegPlatform
+    400040: RigSpine
+    400042: RigTail1
+    400044: RigTail2
+    400046: Toon Chicken
+    2100000: 'Material #2'
+    2300000: //RootNode
+    2300002: Toon Chicken
+    3300000: //RootNode
+    3300002: Toon Chicken
+    4300000: Toon Chicken
+    9500000: //RootNode
+    13700000: Toon Chicken
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,79 @@
+I would recommend downloading the Official Unity PostProcessing stack (https://www.assetstore.unity3d.com/en/#!/content/83912) and turning on Ambient Occlusion to improve the look of Low Poly models.
+
+Set includes modular structural pieces, furniture, and decorative items. Comes with two scenes, one example scene using the models, and one showing all models.
+
+Full list of all 74 models:
+ - Apparatus 1
+ - Apparatus 2
+ - Bars
+ - Bench
+ - Bolt
+ - Bricks
+ - Cable
+ - Chimney
+ - Claw
+ - Clock
+ - Cog
+ - Column
+ - Concrete Base
+ - Crane
+ - Door
+ - Fence (Bronze)
+ - Fence (Iron)
+ - Grate
+ - Hatch
+ - Ladder
+ - Lantern
+ - Lantern (Hanging)
+ - Light
+ - Lightpole
+ - Lightpole (Double)
+ - Machine
+ - Outlet
+ - Panel
+ - Panel (Small)
+ - Panel (Small Lever)
+ - Pipe (90 degrees)
+ - Pipe (Thick)
+ - Pipe 2 (Thick)
+ - Piping
+ - Pole
+ - Road 1
+ - Road 1 (Grate)
+ - Road 2
+ - Rock
+ - Rocks
+ - Roof
+ - Roof (Corner)
+ - Roof (Flat)
+ - Roof (Inner Corner)
+ - Roof (Metal)
+ - Roof (Metal, Corner)
+ - Roof (Metal, Inner Corner)
+ - Screw
+ - Siding
+ - Spotlight
+ - Stair Siding
+ - Stairs
+ - Trashcan
+ - Valve
+ - Valve 2
+ - Valve 3
+ - Wall (Brick)
+ - Wall (Brick, Door)
+ - Wall (Brick, Half)
+ - Wall (Brick, Window)
+ - Wall (Divider)
+ - Wall (Siding)
+ - Wall (Stone)
+ - Wall (Stone, Broken)
+ - Wall (Stone, Half)
+ - Wall (Stone, Half, Broken)
+ - Wall (Stone, Transition)
+ - Wall (Stones)
+ - Wall (Stones, Corner)
+ - Wall (Stones, Door)
+ - Wall (Stones, Window)
+ - Wheel
+ - Window 1
+ - Window 2

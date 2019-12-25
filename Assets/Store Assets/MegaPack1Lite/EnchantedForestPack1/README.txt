@@ -1,0 +1,85 @@
+I would recommend downloading the Official Unity PostProcessing stack (https://www.assetstore.unity3d.com/en/#!/content/83912) and turning on Ambient Occlusion to improve the look of Low Poly models.
+
+All pieces are <600 polygons.
+
+Full list of all 81 models:
+- Bar
+- Beam (Base)
+- Beam (Horizontal)
+- Beam (Vertical)
+- Bench
+- Bridge (Stone)
+- Bridge (Wood)
+- Bush (Variation 1)
+- Bush (Variation 2)
+- Bush (Variation 3)
+- Bush (Variation 4)
+- Bush (Variation 5)
+- Cart
+- Cattail
+- Chimney (Variation 1)
+- Chimney (Variation 2)
+- Door (Variation 1)
+- Fence (Wood, Variation 1)
+- Fence (Wood, Variation 2)
+- Flower (Variation 1)
+- Flower (Variation 2)
+- Flower (Variation 3)
+- Flower (Variation 4)
+- Flower (Variation 5)
+- Grass (Variation 1)
+- Grass (Variation 2)
+- Grass (Variation 3)
+- Hatchet
+- Lily Pad (Variation 1)
+- Lily Pad (Variation 2)
+- Log
+- Moss (Wall)
+- Moss (Wall, Half)
+- Moss (Door)
+- Moss (Window)
+- Mushroom (Variation 1)
+- Mushroom (Variation 2)
+- Mushroom (Variation 3)
+- Pickaxe
+- Pitchfork
+- Rock (Variation 1)
+- Rock (Variation 2)
+- Rock (Variation 3)
+- Roof (Straw)
+- Roof (Wood, Variation 1)
+- Roof (Wood, Variation 2)
+- Shovel
+- Sign
+- Stone (Variation 1)
+- Stone (Variation 2)
+- Stone (Variation 3)
+- Stool
+- Table
+- Tree (Variation 1)
+- Tree (Variation 2)
+- Tree (Variation 3)
+- Tree (Variation 4)
+- Tree (Variation 5)
+- Tree (Fallen, Big)
+- Tree (Fallen, Small)
+- Tree (Stump, Variation 1)
+- Tree (Stump, Variation 2)
+- Trough
+- Wall (Stone)
+- Wall (Stone, Corner)
+- Wall (Stone, Door)
+- Wall (Stone, Window)
+- Wall (Stone, Half)
+- Wall (Wood, Variation 1)
+- Wall (Wood, Variation 1, Door)
+- Wall (Wood, Variation 1, Window)
+- Wall (Wood, Variation 2)
+- Wall (Wood, Variation 2, Door)
+- Wall (Wood, Variation 2, Window)
+- Wall (Wood, Variation 3)
+- Wall (Wood, Variation 3, Door)
+- Wall (Wood, Variation 3, Window)
+- Wall (Wood, End)
+- Well
+- Window (Variation 1)

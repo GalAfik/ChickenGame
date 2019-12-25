@@ -1,0 +1,66 @@
+I would recommend downloading the Official Unity PostProcessing stack (https://www.assetstore.unity3d.com/en/#!/content/83912) and turning on Ambient Occlusion to improve the look of Low Poly models.
+
+All pieces are < 500 polygons.
+
+Full list of all 61 models:
+- Bed
+- Bench
+- Column
+- Console
+- Container (Glass)
+- Crate (Variation 1)
+- Crate (Variation 2)
+- Cylinder (Variation 1)
+- Cylinder (Variation 2)
+- Door (Variation 1)
+- Door (Variation 2)
+- Door (Variation 3)
+- Fence
+- Floor (Variation 1)
+- Floor (Variation 2)
+- Floor (Variation 3)
+- Floor (Variation 4)
+- Ladder (Variation 1)
+- Ladder (Variation 2)
+- Light (Variation 1)
+- Light (Variation 2)
+- Light (Variation 3)
+- Light (Variation 4)
+- Light (Variation 5)
+- Pad
+- Panel (Horizontal)
+- Panel (Vertical)
+- Panel (Small)
+- Pipes (Horizontal)
+- Pipes (Vertical)
+- Plant
+- Plug
+- Pot
+- Screen
+- Stairs
+- Table
+- Valve
+- Wall (1-Sided)
+- Wall (1-Sided, Door)
+- Wall (1-Sided, Round Door)
+- Wall (1-Sided, Rect Window)
+- Wall (1-Sided, Round Window)
+- Wall (2-Sided)
+- Wall (2-Sided, Door)
+- Wall (2-Sided, Round Door)
+- Wall (2-Sided, Rect Window)
+- Wall (2-Sided, Round Window)
+- Wall (Blank)
+- Wall (Bowed)
+- Wall (Bowed, Inside Turn Med)
+- Wall (Bowed, Inside Turn Short)
+- Wall (Bowed, Striped)
+- Wall (Bowed, To Straight Left)
+- Wall (Bowed, To Straight Left Med)
+- Wall (Bowed, To Straight Right)
+- Wall (Bowed, To Straight Right Med)
+- Wall (Bowed, Turn Short)
+- Wall (Bowed, Round Window)
+- Wall (Glass)
+- Wall (Half)
+- Wall (Top)
