@@ -16,7 +16,7 @@ public class Chick : Follower
 		Player playerObject = FindObjectOfType<Player>();
 		if (playerObject != null)
 		{
-			speed = playerObject.maxSpeed + speedRelativeToPlayer;
+			speed = playerObject.maxForwardSpeed + speedRelativeToPlayer;
 		}
 	}
 

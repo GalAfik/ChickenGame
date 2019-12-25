@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-	public float maxSpeed = 4f;
+	public float maxForwardSpeed = 4f;
+	public float maxSidewaysSpeed = 4f;
+	public float minDriftSpeed = 3f;
 	public float acceleration = 10f; // How fast the player character should start moving
 	public float deceleration = 4f; // How fast the player character should stop when not moving
 	public float gravity = 20f; // How fast the player should fall to the ground when not grounded
@@ -43,10 +45,13 @@ public class Player : MonoBehaviour
 		// Get animator object to set variables for animations
 		animator = GetComponent<Animator>();
 		// Set running animation speed to half of max speed
-		runAnimSpeed *= maxSpeed;
+		runAnimSpeed *= maxForwardSpeed;
 
 		// Set Cursor to not be visible
 		Cursor.visible = false;
+
+		// Start with drift effect off
+		GetComponent<ParticleSystem>().Pause();
 	}
 
 	// Update is called once per frame
@@ -78,17 +83,22 @@ public class Player : MonoBehaviour
 			transform.LookAt(mousePositionInWorld); //transform.forward = lookVector;
 			// Handle forward acceleration
 			if (!Input.GetMouseButton(1))
-				moveVector += lookVector.normalized * acceleration * Time.deltaTime;
+				moveVector += lookVector.normalized * acceleration * Time.deltaTime; // Accelerate
+			else
+				moveVector -= moveVector.normalized * deceleration * Time.deltaTime; // Slow down using deceleration
 		}
 
-		// Freeze chicken in place if right mouse button is held down
-		if (Input.GetMouseButton(1))
-			moveVector -= moveVector.normalized * deceleration * Time.deltaTime; // Slow down using deceleration
-
 		// Ensure that velocity does not excede max speed
-		float velocity = Mathf.Abs(Vector3.Dot(moveVector, transform.forward)); // Has to account only for hoizontal velocity and ignore vertical vel.
-		if (velocity > maxSpeed) moveVector = moveVector.normalized * maxSpeed;
-		else if (velocity < 0) moveVector = Vector3.zero;
+		float forwardVelocity = Mathf.Abs(Vector3.Dot(moveVector, transform.forward)); // Has to account only for hoizontal velocity and ignore vertical vel.
+		float sidewaysVelocity = Mathf.Abs(Vector3.Dot(moveVector, transform.right));
+		if (forwardVelocity > maxForwardSpeed) moveVector = moveVector.normalized * maxForwardSpeed;
+		else if (forwardVelocity < 0) moveVector = Vector3.zero; // This should never happen, but may due to bad calculation and needs to be fixed
+		if (sidewaysVelocity > maxSidewaysSpeed) moveVector = moveVector.normalized * maxSidewaysSpeed;
+		else if (sidewaysVelocity < 0) moveVector = Vector3.zero; // This should never happen, but may due to bad calculation and needs to be fixed
+
+		// Handle drifting
+		if (sidewaysVelocity >= minDriftSpeed && controller.isGrounded) GetComponent<ParticleSystem>().Play();
+		else GetComponent<ParticleSystem>().Pause();
 
 		// Handle gravity and hovering
 		if (controller.isGrounded)
@@ -112,8 +122,8 @@ public class Player : MonoBehaviour
 		if (canShoot && Input.GetMouseButtonDown(0)) Shoot(lookVector);
 
 		// Animation variables
-		if (velocity >= runAnimSpeed || !controller.isGrounded) animator.SetBool("Run", true);
-		else if (velocity > 0) animator.SetBool("Walk", true);
+		if (forwardVelocity >= runAnimSpeed || !controller.isGrounded) animator.SetBool("Run", true);
+		else if (forwardVelocity > 0) animator.SetBool("Walk", true);
 		else
 		{
 			animator.SetBool("Run", false);
