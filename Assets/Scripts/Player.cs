@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
 
 	private Animator animator; // Handles animations
 	private float runAnimSpeed = .5f; // How fast the player has to be moving to start the running animation
-	private new ParticleSystem.EmissionModule emissionModule;
+	private ParticleSystem.EmissionModule emissionModule;
 
 	// Power-ups
 	private bool canJump = true;
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
 	private bool canDash = true;
 	private bool canSwim = true;
 	private bool canBawk = true;
-	private bool superMode = false;
+	private bool superMode = true;
 
 	// Runs when the object is first created, before the first step
 	private void Start()
@@ -98,8 +98,8 @@ public class Player : MonoBehaviour
 		float tempMaxSidewaysSpeed = (superMode ? maxSidewaysSpeed * superMultipliler : maxSidewaysSpeed);
 		float tempMinDriftSpeed = (superMode ? minDriftSpeed * superMultipliler : minDriftSpeed);
 
-	// Ensure that velocity does not excede max speed
-	float forwardVelocity = Mathf.Abs(Vector3.Dot(moveVector, transform.forward)); // Has to account only for hoizontal velocity and ignore vertical vel.
+		// Ensure that velocity does not excede max speed
+		float forwardVelocity = Mathf.Abs(Vector3.Dot(moveVector, transform.forward)); // Has to account only for hoizontal velocity and ignore vertical vel.
 		float sidewaysVelocity = Mathf.Abs(Vector3.Dot(moveVector, transform.right));
 		if (forwardVelocity > tempMaxForwardSpeed) moveVector = moveVector.normalized * tempMaxForwardSpeed;
 		else if (forwardVelocity < 0) moveVector = Vector3.zero; // This should never happen, but may due to bad calculation and needs to be fixed
@@ -131,13 +131,25 @@ public class Player : MonoBehaviour
 		if (canShoot && Input.GetMouseButtonDown(0)) Shoot(lookVector);
 
 		// Animation variables
-		if (forwardVelocity >= runAnimSpeed || !controller.isGrounded) animator.SetBool("Run", true);
+		if (forwardVelocity >= runAnimSpeed || sidewaysVelocity >= runAnimSpeed || !controller.isGrounded) animator.SetBool("Run", true);
 		else if (forwardVelocity > 0) animator.SetBool("Walk", true);
 		else
 		{
 			animator.SetBool("Run", false);
 			animator.SetBool("Walk", false);
 		}
+
+		// TODO : Tint the player color RED when in super mode
+		/*if (superMode)
+		{
+			Renderer renderer = gameObject.GetComponent<Renderer>();
+			if (renderer != null)
+			{
+				Color tempColor = renderer.material.color;
+				tempColor.r = 1f;
+				renderer.material.SetColor("_Color", tempColor);
+			}
+		}*/
 
 		// Handle the player falling off the screen
 		if (transform.position.y <= -10) transform.position = lastGroundedPosition;
