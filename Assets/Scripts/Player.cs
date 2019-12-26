@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-	public float maxForwardSpeed = 4f;
-	public float maxSidewaysSpeed = 4f;
-	public float minDriftSpeed = 3f;
+	public float maxForwardSpeed = 3f;
+	public float maxSidewaysSpeed = 3f;
+	public float minDriftSpeed = 2f;
+	public float superMultipliler = 1.5f; // All speed-related values will be multiplied by this when super mode is enabled
+
 	public float acceleration = 10f; // How fast the player character should start moving
 	public float deceleration = 4f; // How fast the player character should stop when not moving
 	public float gravity = 20f; // How fast the player should fall to the ground when not grounded
@@ -24,6 +26,7 @@ public class Player : MonoBehaviour
 
 	private Animator animator; // Handles animations
 	private float runAnimSpeed = .5f; // How fast the player has to be moving to start the running animation
+	private new ParticleSystem.EmissionModule emissionModule;
 
 	// Power-ups
 	private bool canJump = true;
@@ -32,6 +35,7 @@ public class Player : MonoBehaviour
 	private bool canDash = true;
 	private bool canSwim = true;
 	private bool canBawk = true;
+	private bool superMode = false;
 
 	// Runs when the object is first created, before the first step
 	private void Start()
@@ -51,7 +55,8 @@ public class Player : MonoBehaviour
 		Cursor.visible = false;
 
 		// Start with drift effect off
-		GetComponent<ParticleSystem>().Pause();
+		emissionModule = GetComponent<ParticleSystem>().emission;
+		emissionModule.enabled = true;
 	}
 
 	// Update is called once per frame
@@ -88,17 +93,21 @@ public class Player : MonoBehaviour
 				moveVector -= moveVector.normalized * deceleration * Time.deltaTime; // Slow down using deceleration
 		}
 
-		// Ensure that velocity does not excede max speed
-		float forwardVelocity = Mathf.Abs(Vector3.Dot(moveVector, transform.forward)); // Has to account only for hoizontal velocity and ignore vertical vel.
+		// Temp variables for accounting for super mode multiplier
+		float tempMaxForwardSpeed = (superMode ? maxForwardSpeed * superMultipliler : maxForwardSpeed);
+		float tempMaxSidewaysSpeed = (superMode ? maxSidewaysSpeed * superMultipliler : maxSidewaysSpeed);
+		float tempMinDriftSpeed = (superMode ? minDriftSpeed * superMultipliler : minDriftSpeed);
+
+	// Ensure that velocity does not excede max speed
+	float forwardVelocity = Mathf.Abs(Vector3.Dot(moveVector, transform.forward)); // Has to account only for hoizontal velocity and ignore vertical vel.
 		float sidewaysVelocity = Mathf.Abs(Vector3.Dot(moveVector, transform.right));
-		if (forwardVelocity > maxForwardSpeed) moveVector = moveVector.normalized * maxForwardSpeed;
+		if (forwardVelocity > tempMaxForwardSpeed) moveVector = moveVector.normalized * tempMaxForwardSpeed;
 		else if (forwardVelocity < 0) moveVector = Vector3.zero; // This should never happen, but may due to bad calculation and needs to be fixed
-		if (sidewaysVelocity > maxSidewaysSpeed) moveVector = moveVector.normalized * maxSidewaysSpeed;
+		if (sidewaysVelocity > tempMaxSidewaysSpeed) moveVector = moveVector.normalized * tempMaxSidewaysSpeed;
 		else if (sidewaysVelocity < 0) moveVector = Vector3.zero; // This should never happen, but may due to bad calculation and needs to be fixed
 
 		// Handle drifting
-		if (sidewaysVelocity >= minDriftSpeed && controller.isGrounded) GetComponent<ParticleSystem>().Play();
-		else GetComponent<ParticleSystem>().Pause();
+		emissionModule.enabled = ((sidewaysVelocity >= tempMinDriftSpeed && controller.isGrounded) ? true : false); // Enable/disable drift effects
 
 		// Handle gravity and hovering
 		if (controller.isGrounded)

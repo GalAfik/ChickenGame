@@ -11326,5 +11326,25 @@ PrefabInstance:
       propertyPath: maxSpeed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3747838891614345380, guid: 2b5ae59f33c2b7a46ab504adce17ec31,
+        type: 3}
+      propertyPath: maxForwardSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3747838891614345380, guid: 2b5ae59f33c2b7a46ab504adce17ec31,
+        type: 3}
+      propertyPath: maxSidewaysSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3747838891614345380, guid: 2b5ae59f33c2b7a46ab504adce17ec31,
+        type: 3}
+      propertyPath: minDriftSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3747838891614345380, guid: 2b5ae59f33c2b7a46ab504adce17ec31,
+        type: 3}
+      propertyPath: superMultipliler
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b5ae59f33c2b7a46ab504adce17ec31, type: 3}
