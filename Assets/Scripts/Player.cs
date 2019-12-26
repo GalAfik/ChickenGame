@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
 	public float shootDistance = 5f; // How far the shot object should be shot
 	public GameObject projectileObject; // The game object being used as a projectile for the Shoot function
 
+	private bool hasControl = true; // Does the player have control over the character?
 	protected Vector3 moveVector; // The direction the player should move in
 	private float verticalVelocity;
 	private float minMoveDistance = .05f; // How far the mouse must be from the player before it will start moving
@@ -62,10 +63,6 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		// Reset animation variables
-		animator.SetBool("Run", false);
-		animator.SetBool("Walk", false);
-
 		// Figure out the ground plane
 		// Create an invisible plane, centered on the player object, parallel to the "ground" to intersect the mouse ray with
 		RaycastHit objectUnderPlayer;
@@ -85,9 +82,9 @@ public class Player : MonoBehaviour
 		if (lookVector.magnitude >= minMoveDistance)
 		{
 			// Rotate to look at the mouse
-			transform.LookAt(mousePositionInWorld); //transform.forward = lookVector;
+			if (hasControl) transform.LookAt(mousePositionInWorld);
 			// Handle forward acceleration
-			if (!Input.GetMouseButton(1))
+			if (!Input.GetMouseButton(1) && hasControl)
 				moveVector += lookVector.normalized * acceleration * Time.deltaTime; // Accelerate
 			else
 				moveVector -= moveVector.normalized * deceleration * Time.deltaTime; // Slow down using deceleration
@@ -101,10 +98,18 @@ public class Player : MonoBehaviour
 		// Ensure that velocity does not excede max speed
 		float forwardVelocity = Mathf.Abs(Vector3.Dot(moveVector, transform.forward)); // Has to account only for hoizontal velocity and ignore vertical vel.
 		float sidewaysVelocity = Mathf.Abs(Vector3.Dot(moveVector, transform.right));
-		if (forwardVelocity > tempMaxForwardSpeed) moveVector = moveVector.normalized * tempMaxForwardSpeed;
-		else if (forwardVelocity < 0) moveVector = Vector3.zero; // This should never happen, but may due to bad calculation and needs to be fixed
-		if (sidewaysVelocity > tempMaxSidewaysSpeed) moveVector = moveVector.normalized * tempMaxSidewaysSpeed;
-		else if (sidewaysVelocity < 0) moveVector = Vector3.zero; // This should never happen, but may due to bad calculation and needs to be fixed
+		if (forwardVelocity > tempMaxForwardSpeed)
+		{
+			forwardVelocity = tempMaxForwardSpeed;
+			moveVector = moveVector.normalized * tempMaxForwardSpeed;
+		}
+		if (forwardVelocity < 0.1) forwardVelocity = 0; // Account for tiny decimal velocity messing with animations 
+		if (sidewaysVelocity > tempMaxSidewaysSpeed)
+		{
+			sidewaysVelocity = tempMaxSidewaysSpeed;
+			moveVector = moveVector.normalized * tempMaxSidewaysSpeed;
+		}
+		if (sidewaysVelocity < 0.1) sidewaysVelocity = 0; // Account for tiny decimal velocity messing with animations 
 
 		// Handle drifting
 		emissionModule.enabled = ((sidewaysVelocity >= tempMinDriftSpeed && controller.isGrounded) ? true : false); // Enable/disable drift effects
@@ -114,7 +119,7 @@ public class Player : MonoBehaviour
 		{
 			lastGroundedPosition = transform.position;
 			verticalVelocity = -gravity * Time.deltaTime;
-			if (canJump && Input.GetButtonDown("Jump")) verticalVelocity = jumpSpeed; // Handle Jumping
+			if (canJump && Input.GetButtonDown("Jump") && forwardVelocity > 0.1) verticalVelocity = jumpSpeed; // Handle Jumping - only when moving forward
 		}
 		else
 		{
@@ -131,10 +136,11 @@ public class Player : MonoBehaviour
 		if (canShoot && Input.GetMouseButtonDown(0)) Shoot(lookVector);
 
 		// Animation variables
-		if (forwardVelocity >= runAnimSpeed || sidewaysVelocity >= runAnimSpeed || !controller.isGrounded) animator.SetBool("Run", true);
-		else if (forwardVelocity > 0) animator.SetBool("Walk", true);
+		if (forwardVelocity >= runAnimSpeed || sidewaysVelocity >= runAnimSpeed) animator.SetBool("Run", true);
+		else if (forwardVelocity > 0.1) animator.SetBool("Walk", true);
 		else
 		{
+			// Reset animation variables
 			animator.SetBool("Run", false);
 			animator.SetBool("Walk", false);
 		}
