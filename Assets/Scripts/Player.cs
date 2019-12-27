@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
 	private bool canDash = true;
 	private bool canSwim = true;
 	private bool canBawk = true;
-	private bool superMode = true;
+	private bool superMode = false;
 
 	// Runs when the object is first created, before the first step
 	private void Start()
@@ -145,17 +145,10 @@ public class Player : MonoBehaviour
 			animator.SetBool("Walk", false);
 		}
 
-		// TODO : Tint the player color RED when in super mode
-		/*if (superMode)
-		{
-			Renderer renderer = gameObject.GetComponent<Renderer>();
-			if (renderer != null)
-			{
-				Color tempColor = renderer.material.color;
-				tempColor.r = 1f;
-				renderer.material.SetColor("_Color", tempColor);
-			}
-		}*/
+		// Tint the player color RED when in super mode
+		Renderer renderer = gameObject.GetComponent<SkinnedMeshRenderer>();
+		if (superMode) renderer.material.color = Color.red;
+		else renderer.material.color = Color.white;
 
 		// Handle the player falling off the screen
 		if (transform.position.y <= -10) transform.position = lastGroundedPosition;

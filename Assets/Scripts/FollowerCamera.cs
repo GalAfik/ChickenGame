@@ -21,7 +21,7 @@ public class FollowerCamera : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void LateUpdate()
+	void Update()
     {
 		// Re-enable objects that were previously hidden 
 		if (objectsBetweenCameraAndPlayer != null)
@@ -44,7 +44,7 @@ public class FollowerCamera : MonoBehaviour
 	// TODO : Set the alpha opacity of an object's material
 	private void SetAlpha(GameObject gameObject, float alpha)
 	{
-		Renderer renderer = gameObject.GetComponent<Renderer>();
+		Renderer renderer = gameObject.GetComponent<MeshRenderer>();
 		if (renderer != null)
 		{
 			Color tempColor = renderer.material.color;
