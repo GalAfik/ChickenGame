@@ -155,9 +155,9 @@ public class Player : MonoBehaviour
 
 		/* DEBUG SECTION */
 		//Debug.Log(moveVector);
-		Debug.DrawRay(transform.position, transform.up.normalized, Color.green);
-		Debug.DrawRay(transform.position, transform.forward.normalized, Color.blue);
-		Debug.DrawRay(transform.position, transform.right.normalized, Color.red);
+		//Debug.DrawRay(transform.position, transform.up.normalized, Color.green);
+		//Debug.DrawRay(transform.position, transform.forward.normalized, Color.blue);
+		//Debug.DrawRay(transform.position, transform.right.normalized, Color.red);
 	}
 
 	// Instantiate a shootable game object and invoke its Shoot() function

@@ -1820,7 +1820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToFollow: {fileID: 2067261598}
-  transparencyOfBlockingObjects: 0.1
+  transparencyOfBlockingObjects: 0.3
 --- !u!1001 &566608452
 PrefabInstance:
   m_ObjectHideFlags: 0
