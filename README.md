@@ -24,9 +24,13 @@ Current planned power-ups:
 
 
 NPCs:
+
 Horse - Show collection and game stats.
+
 Cow - Show gameplay tutorials and allow the player to replay the tutorial stage.
+
 Pig - ?
+
 Chicken - Allow the player to change skins, once unlocked (by collecting enough chicks).
 
 
