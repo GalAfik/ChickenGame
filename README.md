@@ -20,6 +20,14 @@ Current planned power-ups:
 3. Glide - This skill will be awarded to players who finish the crops level. When jumping, the player will glide for short distances.
 4. Swim - This skill will be unlocked oncee the Canyon level has been completed. Players will now be able to swim across rivers and bodies of water, allowing them to enter the construction yard and cross the river in the forest.
 5. Bawk - As the name implies, this ability allows the player to squak with the mighty force of the Gods! This can be used as an attack, as well as to push heavy objects and opeen the gate to the farm in the South-eastern Cropfield, allowing access to town, the final level of the game.
+6. Super Mode - After collecting a Corn item, the player will turn red and gain speed for a short duration.
+
+
+NPCs:
+Horse - Show collection and game stats.
+Cow - Show gameplay tutorials and allow the player to replay the tutorial stage.
+Pig - ?
+Chicken - Allow the player to change skins, once unlocked (by collecting enough chicks).
 
 
 
