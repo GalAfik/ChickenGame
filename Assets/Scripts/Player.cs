@@ -9,6 +9,14 @@ public class Player : MonoBehaviour
 	public float minDriftSpeed = 2f;
 	public float superMultipliler = 1.5f; // All speed-related values will be multiplied by this when super mode is enabled
 
+	// Dash variables
+	public float maxDashTime = 0.1f;
+	public float dashSpeedMultiplier = 4f;
+	public float dashCooldownTime = 1f;
+	private float currentDashTime;
+	private Vector3 dashDirection;
+	private float currentDashCooldownTime;
+
 	public float acceleration = 10f; // How fast the player character should start moving
 	public float deceleration = 4f; // How fast the player character should stop when not moving
 	public float gravity = 20f; // How fast the player should fall to the ground when not grounded
@@ -58,6 +66,10 @@ public class Player : MonoBehaviour
 		// Start with drift effect off
 		emissionModule = GetComponent<ParticleSystem>().emission;
 		emissionModule.enabled = true;
+
+		// Zero out dash timer
+		currentDashTime = 0;
+		currentDashCooldownTime = 0;
 	}
 
 	// Update is called once per frame
@@ -127,6 +139,23 @@ public class Player : MonoBehaviour
 			if (canGlide && Input.GetButton("Jump") && moveVector.y < 0) verticalVelocity -= glidingGravity * Time.deltaTime;
 			else verticalVelocity -= gravity * Time.deltaTime;
 		}
+
+		// Apply dash multiplier to max speed if the dash button is pressed
+		if (canDash && Input.GetButton("Dash") && controller.isGrounded && currentDashCooldownTime <= 0)
+		{
+			currentDashTime = maxDashTime;
+			currentDashCooldownTime = dashCooldownTime;
+			dashDirection = transform.forward; // Set the temporary dash direction
+		}
+		if (currentDashTime > 0) // Dash
+		{
+			if (canJump) canJump = false; // Turn off jumping temporarily
+			currentDashTime -= Time.deltaTime; // Iterate dash timer
+			transform.forward = dashDirection; // Lock the direction the player is looking
+			moveVector = dashDirection.normalized * maxForwardSpeed * dashSpeedMultiplier; // Move forward at maxForwardSpeed * dashSpeedMultiplier
+			emissionModule.enabled = true; // Particle effect while dashing
+		}
+		if (currentDashCooldownTime > 0) currentDashCooldownTime -= Time.deltaTime; // Cooldown Dash ability
 
 		// Finally, apply the moveVector to the player controller
 		moveVector.y = verticalVelocity;
