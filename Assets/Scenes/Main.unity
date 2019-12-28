@@ -11576,7 +11576,7 @@ PrefabInstance:
     - target: {fileID: 3747838891614345380, guid: 2b5ae59f33c2b7a46ab504adce17ec31,
         type: 3}
       propertyPath: maxDashTime
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3747838891614345383, guid: 2b5ae59f33c2b7a46ab504adce17ec31,
         type: 3}

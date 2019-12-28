@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 	public float superMultipliler = 1.5f; // All speed-related values will be multiplied by this when super mode is enabled
 
 	// Dash variables
-	public float maxDashTime = 0.1f;
+	public float maxDashTime = 0.2f;
 	public float dashSpeedMultiplier = 4f;
 	public float dashCooldownTime = 1f;
 	private float currentDashTime;
@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
 	private Animator animator; // Handles animations
 	private float runAnimSpeed = .5f; // How fast the player has to be moving to start the running animation
 	private ParticleSystem.EmissionModule emissionModule;
+	private new Renderer renderer;
+	private ParticleSystem.MinMaxCurve emissionRateOverTime;
 
 	// Power-ups
 	private bool canJump = true;
@@ -64,8 +66,10 @@ public class Player : MonoBehaviour
 		Cursor.visible = false;
 
 		// Start with drift effect off
+		renderer = GetComponent<SkinnedMeshRenderer>();
 		emissionModule = GetComponent<ParticleSystem>().emission;
-		emissionModule.enabled = true;
+		emissionModule.enabled = false;
+		emissionRateOverTime = emissionModule.rateOverTime;
 
 		// Zero out dash timer
 		currentDashTime = 0;
@@ -144,7 +148,7 @@ public class Player : MonoBehaviour
 		if (canDash && Input.GetButton("Dash") && controller.isGrounded && currentDashCooldownTime <= 0)
 		{
 			currentDashTime = maxDashTime;
-			currentDashCooldownTime = dashCooldownTime;
+			currentDashCooldownTime = dashCooldownTime + maxDashTime; // Makes sure that cooldown time is no less than dash time
 			dashDirection = transform.forward; // Set the temporary dash direction
 		}
 		if (currentDashTime > 0) // Dash
@@ -154,6 +158,11 @@ public class Player : MonoBehaviour
 			transform.forward = dashDirection; // Lock the direction the player is looking
 			moveVector = dashDirection.normalized * maxForwardSpeed * dashSpeedMultiplier; // Move forward at maxForwardSpeed * dashSpeedMultiplier
 			emissionModule.enabled = true; // Particle effect while dashing
+			emissionModule.rateOverTime = 100;
+		}
+		else
+		{
+			emissionModule.rateOverTime = emissionRateOverTime; // Reset the rate of emissions
 		}
 		if (currentDashCooldownTime > 0) currentDashCooldownTime -= Time.deltaTime; // Cooldown Dash ability
 
@@ -175,8 +184,8 @@ public class Player : MonoBehaviour
 		}
 
 		// Tint the player color RED when in super mode
-		Renderer renderer = gameObject.GetComponent<SkinnedMeshRenderer>();
 		if (superMode) renderer.material.color = Color.red;
+		if (currentDashTime > 0) renderer.material.color = Color.yellow;
 		else renderer.material.color = Color.white;
 
 		// Handle the player falling off the screen
