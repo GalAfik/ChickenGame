@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
 	private Vector3 dashDirection;
 	private float currentDashCooldownTime;
 
+	// SuperMode variables
+	public float maxSuperModeTime = 4f; // How much time the player remains in superMode when picking up a Corn object
+	private float currentSuperModeTime;
+
 	// Interact variables
 	public float interactRadius = 2f; // How close does an NPC have to be to interact with the player
 	public float interactAngle = 90f;
@@ -52,6 +56,7 @@ public class Player : MonoBehaviour
 	private bool canBawk = true;
 	private bool superMode = false;
 
+
 	// Runs when the object is first created, before the first step
 	private void Start()
 	{
@@ -78,6 +83,9 @@ public class Player : MonoBehaviour
 		// Zero out dash timer
 		currentDashTime = 0;
 		currentDashCooldownTime = 0;
+
+		// Zero out superMode timer
+		currentSuperModeTime = 0;
 	}
 
 	// Update is called once per frame
@@ -166,6 +174,7 @@ public class Player : MonoBehaviour
 		}
 		else
 		{
+			canJump = true; // Reenable jumping after dash
 			emissionModule.rateOverTime = emissionRateOverTime; // Reset the rate of emissions
 		}
 		if (currentDashCooldownTime > 0) currentDashCooldownTime -= Time.deltaTime; // Cooldown Dash ability
@@ -187,8 +196,14 @@ public class Player : MonoBehaviour
 			animator.SetBool("Walk", false);
 		}
 
+		// Handle superMode timer and effects
 		// Tint the player color RED when in super mode
-		if (superMode) renderer.material.color = Color.red;
+		if (superMode)
+		{
+			if (currentSuperModeTime <= 0) superMode = false;
+			else currentSuperModeTime -= Time.deltaTime;
+			renderer.material.color = Color.red;
+		}
 		else renderer.material.color = Color.white;
 
 		// Handle the player falling off the screen
@@ -209,9 +224,11 @@ public class Player : MonoBehaviour
 					// Lose control of the player temporarily
 					hasControl = false;
 					Debug.Log("INTERACT");
-					
+
 				}
 			}
+			// Stop the player in place
+			moveVector = Vector3.zero;
 		}
 
 		/* DEBUG SECTION */
@@ -234,5 +251,17 @@ public class Player : MonoBehaviour
 		// Shoot an object in the shootVector direction
 		Shootable projectileInstance = Instantiate(projectileObject, spawnPosition, Quaternion.identity).GetComponent<Shootable>();
 		projectileInstance.Shoot(shootVector, shootDistance);
+	}
+
+	// Handle collisions and triggers
+	private void OnTriggerEnter(Collider other)
+	{
+		// Handle picking up a corn object
+		if (other.gameObject.tag == "Corn")
+		{
+			superMode = true;
+			Destroy(other.gameObject);
+			currentSuperModeTime = maxSuperModeTime;
+		}
 	}
 }
