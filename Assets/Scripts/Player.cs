@@ -17,6 +17,10 @@ public class Player : MonoBehaviour
 	private Vector3 dashDirection;
 	private float currentDashCooldownTime;
 
+	// Interact variables
+	public float interactRadius = 2f; // How close does an NPC have to be to interact with the player
+	public float interactAngle = 90f;
+
 	public float acceleration = 10f; // How fast the player character should start moving
 	public float deceleration = 4f; // How fast the player character should stop when not moving
 	public float gravity = 20f; // How fast the player should fall to the ground when not grounded
@@ -185,11 +189,30 @@ public class Player : MonoBehaviour
 
 		// Tint the player color RED when in super mode
 		if (superMode) renderer.material.color = Color.red;
-		if (currentDashTime > 0) renderer.material.color = Color.yellow;
 		else renderer.material.color = Color.white;
 
 		// Handle the player falling off the screen
 		if (transform.position.y <= -10) transform.position = lastGroundedPosition;
+
+		// Handle talking with NPCs
+		if (Input.GetButton("Interact") && controller.isGrounded && hasControl)
+		{
+			// Sphere cast around the player to find any NPC objects in a radius
+			RaycastHit[] objectsAroundPlayer = new RaycastHit[16];
+			objectsAroundPlayer = Physics.SphereCastAll(transform.position, interactRadius, transform.forward, 0);
+			foreach (RaycastHit hit in objectsAroundPlayer)
+			{
+				// Find out if the player is facing the NPC
+				float angleToObject = Mathf.Abs(Vector3.Angle(transform.forward, hit.transform.position));
+				if (hit.transform.gameObject.tag != "NPC" && angleToObject <= interactAngle)
+				{
+					// Lose control of the player temporarily
+					hasControl = false;
+					Debug.Log("INTERACT");
+					
+				}
+			}
+		}
 
 		/* DEBUG SECTION */
 		//Debug.Log(moveVector);
