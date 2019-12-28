@@ -5,7 +5,9 @@ using UnityEngine;
 public class FollowerCamera : MonoBehaviour
 {
 	public GameObject objectToFollow;
+	[Range(0, 1)]
 	public float transparencyOfBlockingObjects = 0.3f;
+	public float transparentEffectRadius = .5f;
 
 	private Vector3 cameraOffset;
 	private RaycastHit[] objectsBetweenCameraAndPlayer;
@@ -26,13 +28,13 @@ public class FollowerCamera : MonoBehaviour
 	void Update()
     {
 		// Re-enable objects that were previously hidden 
-		foreach (RaycastHit hit in objectsBetweenCameraAndPlayer)
+		/*foreach (RaycastHit hit in objectsBetweenCameraAndPlayer)
 		{
 			if (hit.transform != null && hit.transform.gameObject.tag != "Player")
 			{
 				SetAlphaRecursive(hit.transform.gameObject, 1);
 			}
-		}
+		}*/
 
 		Vector3 newPosition = objectToFollow.transform.position + cameraOffset;
 
@@ -42,14 +44,21 @@ public class FollowerCamera : MonoBehaviour
 
 		// Check if the player is hidden by an object between the camera and the player
 		float distanceToObjectFollowing = cameraOffset.magnitude;
-		objectsBetweenCameraAndPlayer = Physics.RaycastAll(transform.position, transform.forward, distanceToObjectFollowing);
+		//objectsBetweenCameraAndPlayer = Physics.RaycastAll(transform.position, transform.forward, distanceToObjectFollowing);
+		// Raycast using a sphere to increase the radius of the transparent effect
+		/*objectsBetweenCameraAndPlayer = Physics.SphereCastAll(transform.position, transparentEffectRadius, transform.forward, distanceToObjectFollowing - 1);
 		foreach (RaycastHit hit in objectsBetweenCameraAndPlayer)
 		{
 			if (hit.transform.gameObject.tag != "Player")
 			{
 				SetAlphaRecursive(hit.transform.gameObject, transparencyOfBlockingObjects);
+				foreach (Transform sibling in hit.transform.GetComponentsInParent<Transform>())
+				{
+					if (sibling.name != "buildings" && sibling.parent.name != "buildings")
+						SetAlphaRecursive(sibling.gameObject, transparencyOfBlockingObjects);
+				}
 			}
-		}
+		}*/
 	}
 
 	// Get all children of a gameobject and set each of their alphas - ignore the player object!
@@ -63,7 +72,7 @@ public class FollowerCamera : MonoBehaviour
 				SetAlphaRecursive(childTransform.gameObject, alpha);
 			}
 		}
-		SetAlpha(parentGameObject.gameObject, transparencyOfBlockingObjects);
+		SetAlpha(parentGameObject.gameObject, alpha);
 	}
 
 	// Set the alpha opacity of an object's material
