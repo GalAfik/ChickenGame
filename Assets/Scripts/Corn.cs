@@ -17,8 +17,6 @@ public class Corn : MonoBehaviour
 
 	private ParticleSystem.EmissionModule emissionModule;
 
-
-
 	// Start is called before the first frame update
 	void Start()
     {
@@ -34,7 +32,7 @@ public class Corn : MonoBehaviour
     void Update()
     {
 		// Turn on the particle effect if the player is close to this object
-        if (Vector3.Distance(playerObject.transform.position, transform.position) <= turnOnDistance)
+        if (playerObject != null && Vector3.Distance(playerObject.transform.position, transform.position) <= turnOnDistance)
 		{
 			emissionModule.enabled = true;
 		}

@@ -184,7 +184,7 @@ public class Player : MonoBehaviour
 		controller.Move(moveVector * Time.deltaTime);
 
 		// Check for click input to handle egg shooting mechanic
-		if (canShoot && Input.GetMouseButtonDown(0)) Shoot(lookVector);
+		if (canShoot && Input.GetMouseButtonDown(0) && hasControl) Shoot(transform.forward);
 
 		// Animation variables
 		if (forwardVelocity >= runAnimSpeed || sidewaysVelocity >= runAnimSpeed) animator.SetBool("Run", true);
@@ -219,12 +219,12 @@ public class Player : MonoBehaviour
 			{
 				// Find out if the player is facing the NPC
 				float angleToObject = Mathf.Abs(Vector3.Angle(transform.forward, hit.transform.position));
-				if (hit.transform.gameObject.tag != "NPC" && angleToObject <= interactAngle)
+				if (hit.transform.gameObject.tag == "NPC" && angleToObject <= interactAngle)
 				{
 					// Lose control of the player temporarily
 					hasControl = false;
-					Debug.Log("INTERACT");
-
+					// Look at the NPC
+					transform.LookAt(hit.transform.gameObject.transform.position);
 				}
 			}
 			// Stop the player in place
