@@ -225,6 +225,9 @@ public class Player : MonoBehaviour
 					hasControl = false;
 					// Look at the NPC
 					transform.LookAt(hit.transform.gameObject.transform.position);
+
+					// Initiate conversation with the NPC character
+					hit.transform.gameObject.GetComponent<NonPlayerCharacter>().Speak();
 				}
 			}
 			// Stop the player in place

@@ -6,9 +6,10 @@ using TMPro;
 public class Dialog : MonoBehaviour
 {
 	public TextMeshProUGUI textDisplay;
+	public GameObject continueButton;
+	public GameObject dialogBox;
 	public string[] sentences;
 	public float typingEffectSpeed;
-	public GameObject continueButton;
 
 	private int index;
 
@@ -19,15 +20,19 @@ public class Dialog : MonoBehaviour
 			textDisplay.text += letter;
 			yield return new WaitForSeconds(typingEffectSpeed);
 		}
-
 	}
 
     // Start is called before the first frame update
     void Start()
     {
 		textDisplay.text = "";
-		StartCoroutine(Type());
     }
+
+	public void Speak(string[] dialog)
+	{
+		sentences = dialog;
+		StartCoroutine(Type());
+	}
 
 	private void Update()
 	{
