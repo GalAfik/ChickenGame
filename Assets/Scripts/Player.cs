@@ -202,9 +202,9 @@ public class Player : MonoBehaviour
 		{
 			if (currentSuperModeTime <= 0) superMode = false;
 			else currentSuperModeTime -= Time.deltaTime;
-			renderer.material.color = Color.red;
+			renderer.material.SetColor("_BaseColor", Color.red);
 		}
-		else renderer.material.color = Color.white;
+		else renderer.material.SetColor("_BaseColor", Color.white);
 
 		// Handle the player falling off the screen
 		if (transform.position.y <= -10) transform.position = lastGroundedPosition;
