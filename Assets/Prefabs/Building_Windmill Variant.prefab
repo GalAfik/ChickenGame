@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!64 &6505306526976817259
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2864589383504353470}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 15e31e7f45956fb42a3c7b91add8ddae, type: 3}
 --- !u!1001 &2864589383504256538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9,19 +23,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100004, guid: ddb2e2a634229d542aad53885c47d1a5, type: 3}
       propertyPath: m_Name
-      value: Building_Windmill
+      value: Building_Windmill Variant
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: ddb2e2a634229d542aad53885c47d1a5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.662994
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: ddb2e2a634229d542aad53885c47d1a5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000023841858
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: ddb2e2a634229d542aad53885c47d1a5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.6875305
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: ddb2e2a634229d542aad53885c47d1a5, type: 3}
       propertyPath: m_LocalRotation.x
@@ -55,5 +69,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: ddb2e2a634229d542aad53885c47d1a5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: ddb2e2a634229d542aad53885c47d1a5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: ddb2e2a634229d542aad53885c47d1a5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddb2e2a634229d542aad53885c47d1a5, type: 3}
+--- !u!1 &2864589383504353470 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100004, guid: ddb2e2a634229d542aad53885c47d1a5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2864589383504256538}
+  m_PrefabAsset: {fileID: 0}

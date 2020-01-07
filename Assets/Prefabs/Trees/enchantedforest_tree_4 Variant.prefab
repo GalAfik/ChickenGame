@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!65 &3920218093901369797
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3908806622331085753}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6200352, y: 2.4839487, z: 0.6200371}
+  m_Center: {x: -0.045233727, y: 1.2124944, z: 0.009046555}
 --- !u!1001 &3907719160971733303
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9,7 +22,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1652801059424910, guid: d913c88cf9f0541b8825af54c4eef4f4, type: 3}
       propertyPath: m_Name
-      value: enchantedforest_tree_4
+      value: enchantedforest_tree_4 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4145596086863014, guid: d913c88cf9f0541b8825af54c4eef4f4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -57,3 +70,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d913c88cf9f0541b8825af54c4eef4f4, type: 3}
+--- !u!1 &3908806622331085753 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1652801059424910, guid: d913c88cf9f0541b8825af54c4eef4f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 3907719160971733303}
+  m_PrefabAsset: {fileID: 0}

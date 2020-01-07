@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 179390, guid: 8e933864a199e524c984068d31913f13, type: 3}
       propertyPath: m_Name
-      value: Wood02_a04
+      value: Wood02_a04 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 425708, guid: 8e933864a199e524c984068d31913f13, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54,6 +54,10 @@ PrefabInstance:
     - target: {fileID: 425708, guid: 8e933864a199e524c984068d31913f13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6410110, guid: 8e933864a199e524c984068d31913f13, type: 3}
+      propertyPath: m_Convex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e933864a199e524c984068d31913f13, type: 3}

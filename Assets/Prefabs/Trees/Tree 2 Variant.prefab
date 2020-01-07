@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!65 &7710211750434182192
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8313673790790729950}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7996297, y: 2.49683, z: 0.6733074}
+  m_Center: {x: 0.46242833, y: -1.945375, z: 0.05846691}
 --- !u!1001 &1695900749528765034
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7,11 +20,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7271368348233208500, guid: 92c52a94263fb134d9012f2d05a74027,
-        type: 3}
-      propertyPath: m_Name
-      value: Tree 2
-      objectReference: {fileID: 0}
     - target: {fileID: 7271368348232978068, guid: 92c52a94263fb134d9012f2d05a74027,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -67,5 +75,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7271368348233208500, guid: 92c52a94263fb134d9012f2d05a74027,
+        type: 3}
+      propertyPath: m_Name
+      value: Tree 2 Variant
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92c52a94263fb134d9012f2d05a74027, type: 3}
+--- !u!1 &8313673790790729950 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7271368348233208500, guid: 92c52a94263fb134d9012f2d05a74027,
+    type: 3}
+  m_PrefabInstance: {fileID: 1695900749528765034}
+  m_PrefabAsset: {fileID: 0}

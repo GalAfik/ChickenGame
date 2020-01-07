@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1194237144135114, guid: 6c13e05b322474b1b9e5e64a664694d7, type: 3}
       propertyPath: m_Name
-      value: enchantedforest_bush_4
+      value: enchantedforest_bush_4 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4708353823052640, guid: 6c13e05b322474b1b9e5e64a664694d7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -54,6 +54,11 @@ PrefabInstance:
     - target: {fileID: 4708353823052640, guid: 6c13e05b322474b1b9e5e64a664694d7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 64941813290434314, guid: 6c13e05b322474b1b9e5e64a664694d7,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c13e05b322474b1b9e5e64a664694d7, type: 3}
