@@ -6,6 +6,7 @@ public class Egg : MonoBehaviour, Shootable
 {
 	public GameObject playerObject;
 	public float maxDistanceFromPlayer = 30f;
+	public GameObject eggSplatterObject;
 
 	void Awake()
     {
@@ -23,7 +24,12 @@ public class Egg : MonoBehaviour, Shootable
 	{
 		// Destroy this object when it hits the ground
 		if (collision.gameObject.name != playerObject.name)
+		{
+			// Destroy the egg
 			Destroy(gameObject);
+			// Spawn an instance of the egg splatter object that fades over time
+			Instantiate(eggSplatterObject);
+		}
 	}
 
 	public void Shoot(Vector3 shootVector, float shootDistance)

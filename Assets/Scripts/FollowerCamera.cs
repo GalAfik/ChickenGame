@@ -5,9 +5,9 @@ using UnityEngine;
 public class FollowerCamera : MonoBehaviour
 {
 	public GameObject objectToFollow;
-	[Range(0, 1)]
-	public float transparencyOfBlockingObjects = 0.3f;
-	public float transparentEffectRadius = .5f;
+	//[Range(0, 1)]
+	//public float transparencyOfBlockingObjects = 0.3f;
+	//public float transparentEffectRadius = .5f;
 
 	private Vector3 cameraOffset;
 	private RaycastHit[] objectsBetweenCameraAndPlayer;
@@ -17,7 +17,7 @@ public class FollowerCamera : MonoBehaviour
 	{
 		// Manually set the position of the camera
 		transform.position = objectToFollow.transform.position;
-		transform.Translate(0, 4, -3, Space.World);
+		transform.Translate(0, 3.5f, -4, Space.World);
 		// Get the relative position of the camera to the player
 		cameraOffset = transform.position - objectToFollow.transform.position;
 		// Instantiate the RaycastHit array

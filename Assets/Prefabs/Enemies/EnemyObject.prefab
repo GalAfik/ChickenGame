@@ -43,7 +43,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1
   followRange: 4
-  objectFollowing: {fileID: 4938613564789952796, guid: 2b5ae59f33c2b7a46ab504adce17ec31,
+  viewRange: 1
+  objectFollowing: {fileID: 3747838891614345371, guid: 2b5ae59f33c2b7a46ab504adce17ec31,
     type: 3}
   health: 5
 --- !u!1001 &5200064373724610955
@@ -55,7 +56,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1975194375736644, guid: 128a80094e00bf34fa2555766a7eea0e, type: 3}
       propertyPath: m_Name
-      value: Boximon Fiery Variant
+      value: EnemyObject
       objectReference: {fileID: 0}
     - target: {fileID: 4744222756475520, guid: 128a80094e00bf34fa2555766a7eea0e, type: 3}
       propertyPath: m_LocalPosition.x
