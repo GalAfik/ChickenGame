@@ -47,6 +47,8 @@ public class Player : MonoBehaviour
 	private new Renderer renderer;
 	private ParticleSystem.MinMaxCurve emissionRateOverTime;
 
+	private Vector3 lastCheckpoint; // The latest checkpoint activated by the player
+
 	// Power-ups
 	private bool canJump = true;
 	private bool canShoot = true;
@@ -239,6 +241,12 @@ public class Player : MonoBehaviour
 		//Debug.DrawRay(transform.position, transform.up.normalized, Color.green);
 		//Debug.DrawRay(transform.position, transform.forward.normalized, Color.blue);
 		//Debug.DrawRay(transform.position, transform.right.normalized, Color.red);
+
+		// When the Quick-Load button is pressed, teleport to the latest checkpoint
+		if (Input.GetButton("Debug Reset") && lastCheckpoint != Vector3.zero)
+		{
+			transform.position = lastCheckpoint;
+		}
 	}
 
 	// Instantiate a shootable game object and invoke its Shoot() function
@@ -265,6 +273,10 @@ public class Player : MonoBehaviour
 			superMode = true;
 			Destroy(other.gameObject);
 			currentSuperModeTime = maxSuperModeTime;
+		}
+		else if (other.gameObject.tag == "Respawn")
+		{
+			lastCheckpoint = other.transform.position;
 		}
 	}
 }

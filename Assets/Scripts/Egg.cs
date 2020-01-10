@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Egg : MonoBehaviour, Shootable
 {
-	public GameObject playerObject;
 	public float maxDistanceFromPlayer = 30f;
 	public GameObject eggSplatterObject;
+
+	private GameObject playerObject;
 
 	void Awake()
     {
