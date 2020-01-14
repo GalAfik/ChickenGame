@@ -54,8 +54,8 @@ public class Player : MonoBehaviour
 	private bool canShoot = true;
 	private bool canGlide = true;
 	private bool canDash = true;
-	private bool canSwim = true;
-	private bool canBawk = true;
+	//private bool canSwim = true;
+	//private bool canBawk = true;
 	private bool superMode = false;
 
 
@@ -159,11 +159,13 @@ public class Player : MonoBehaviour
 		}
 
 		// Apply dash multiplier to max speed if the dash button is pressed
-		if (canDash && Input.GetButton("Dash") && controller.isGrounded && currentDashCooldownTime <= 0)
+		if (canDash && Input.GetButton("Dash") && controller.isGrounded && currentDashCooldownTime <= 0) // Start Dash
 		{
 			currentDashTime = maxDashTime;
 			currentDashCooldownTime = dashCooldownTime + maxDashTime; // Makes sure that cooldown time is no less than dash time
 			dashDirection = transform.forward; // Set the temporary dash direction
+			// Emmit a large puff of particles to start off with
+			GetComponent<ParticleSystem>().Emit(25);
 		}
 		if (currentDashTime > 0) // Dash
 		{
@@ -219,6 +221,7 @@ public class Player : MonoBehaviour
 			objectsAroundPlayer = Physics.SphereCastAll(transform.position, interactRadius, transform.forward, 0);
 			foreach (RaycastHit hit in objectsAroundPlayer)
 			{
+				Debug.Log(hit.transform.gameObject.name);
 				// Find out if the player is facing the NPC
 				float angleToObject = Mathf.Abs(Vector3.Angle(transform.forward, hit.transform.position));
 				if (hit.transform.gameObject.tag == "NPC" && angleToObject <= interactAngle)

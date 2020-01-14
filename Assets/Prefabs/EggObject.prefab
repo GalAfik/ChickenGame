@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8220447309552425744}
   - component: {fileID: 8303415620828601508}
   m_Layer: 0
-  m_Name: Egg
+  m_Name: EggObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,6 +57,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -68,6 +69,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -121,6 +123,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 901892fb8b75ae741837fce94010e816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObject: {fileID: 4938613564789952796, guid: 2b5ae59f33c2b7a46ab504adce17ec31,
-    type: 3}
   maxDistanceFromPlayer: 30
+  eggSplatterObject: {fileID: 5464310130630119628, guid: 3e07dbb6fff279f41811c37252045bee,
+    type: 3}

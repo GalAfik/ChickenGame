@@ -32,8 +32,9 @@ public class NonPlayerCharacter : MonoBehaviour
 		{
 			challanges[currentChallange].gameObject.SetActive(true);
 			// Move to starting location and face forward
-			//transform.position = challanges[currentChallange].gameObject.GetComponent<>.startingPoint.transform.position;
-			//transform.forward = startingPoint.transform.forward;
+			Transform startingPoint = challanges[currentChallange].transform.Find("NPCStartingPoint");
+			transform.position = startingPoint.position;
+			transform.forward = startingPoint.forward;
 		}
 	}
 }
