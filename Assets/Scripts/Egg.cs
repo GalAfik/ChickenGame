@@ -26,7 +26,6 @@ public class Egg : MonoBehaviour, Shootable
 		// Destroy this object when it hits the ground
 		if (collision.gameObject.name != playerObject.name)
 		{
-			Debug.Log(collision.gameObject.name);
 			// Spawn an instance of the egg splatter object that fades over time
 			Vector3 eggDecalHeightOffset = new Vector3(0, 0.01f, 0);
 			GameObject newDecalObject = Instantiate(

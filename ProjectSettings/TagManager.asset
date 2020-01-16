@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NPC
   - Corn
+  - Water
   layers:
   - Default
   - TransparentFX

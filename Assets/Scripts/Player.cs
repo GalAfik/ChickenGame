@@ -13,13 +13,13 @@ public class Player : MonoBehaviour
 	public float maxDashTime = 0.2f;
 	public float dashSpeedMultiplier = 4f;
 	public float dashCooldownTime = 1f;
-	private float currentDashTime;
+	//private float currentDashTime;
 	private Vector3 dashDirection;
-	private float currentDashCooldownTime;
+	//private float currentDashCooldownTime;
 
 	// SuperMode variables
 	public float maxSuperModeTime = 4f; // How much time the player remains in superMode when picking up a Corn object
-	private float currentSuperModeTime;
+	//private float currentSuperModeTime;
 
 	// Interact variables
 	public float interactRadius = 2f; // How close does an NPC have to be to interact with the player
@@ -39,7 +39,6 @@ public class Player : MonoBehaviour
 	private float minMoveDistance = .05f; // How far the mouse must be from the player before it will start moving
 	private Vector3 mousePositionInWorld; // Mouse screen position transposed onto the game world
 	private CharacterController controller;
-	private Vector3 lastGroundedPosition;
 
 	private Animator animator; // Handles animations
 	private float runAnimSpeed = .5f; // How fast the player has to be moving to start the running animation
@@ -48,6 +47,9 @@ public class Player : MonoBehaviour
 	private ParticleSystem.MinMaxCurve emissionRateOverTime;
 
 	private Vector3 lastCheckpoint; // The latest checkpoint activated by the player
+	private Vector3 lastGroundedPosition; // Saves the player's position every second as long as they're on the ground
+	public float positionUpdateTime = .5f; // How much time to elapse between each saving of the player's position
+	//private float positionLocationTimer; // How much time to elapse between each saving of the player's position
 
 	// Power-ups
 	private bool canJump = true;
@@ -57,6 +59,12 @@ public class Player : MonoBehaviour
 	//private bool canSwim = true;
 	//private bool canBawk = true;
 	private bool superMode = false;
+
+	// Timers
+	Timer dashTimer;
+	Timer dashCooldownTimer;
+	Timer superModeTimer;
+	Timer positionUpdateTimer;
 
 
 	// Runs when the object is first created, before the first step
@@ -83,11 +91,12 @@ public class Player : MonoBehaviour
 		emissionRateOverTime = emissionModule.rateOverTime;
 
 		// Zero out dash timer
-		currentDashTime = 0;
-		currentDashCooldownTime = 0;
-
+		dashTimer = new Timer(maxDashTime, false);
+		dashCooldownTimer = new Timer(dashCooldownTime, false);
 		// Zero out superMode timer
-		currentSuperModeTime = 0;
+		superModeTimer = new Timer(maxSuperModeTime, false);
+		// Zero out grounded position timer
+		positionUpdateTimer = new Timer(positionUpdateTime, true);
 	}
 
 	// Update is called once per frame
@@ -147,7 +156,12 @@ public class Player : MonoBehaviour
 		// Handle gravity and hovering
 		if (controller.isGrounded)
 		{
-			lastGroundedPosition = transform.position;
+			// Save the player's position every set amount of time
+			if (positionUpdateTimer.IsElapsed())
+			{
+				lastGroundedPosition = transform.position;
+				positionUpdateTimer.Reset(); // Reset the timer to count down again
+			}
 			verticalVelocity = -gravity * Time.deltaTime;
 			if (canJump && Input.GetButtonDown("Jump") && forwardVelocity > 0.1) verticalVelocity = jumpSpeed; // Handle Jumping - only when moving forward
 		}
@@ -159,18 +173,17 @@ public class Player : MonoBehaviour
 		}
 
 		// Apply dash multiplier to max speed if the dash button is pressed
-		if (canDash && Input.GetButton("Dash") && controller.isGrounded && currentDashCooldownTime <= 0) // Start Dash
+		if (canDash && Input.GetButton("Dash") && controller.isGrounded && dashCooldownTimer.IsElapsed()) // Start Dash
 		{
-			currentDashTime = maxDashTime;
-			currentDashCooldownTime = dashCooldownTime + maxDashTime; // Makes sure that cooldown time is no less than dash time
+			dashTimer.Reset();
+			dashCooldownTimer.Reset();
 			dashDirection = transform.forward; // Set the temporary dash direction
 			// Emmit a large puff of particles to start off with
 			GetComponent<ParticleSystem>().Emit(25);
 		}
-		if (currentDashTime > 0) // Dash
+		if (!dashTimer.IsElapsed()) // Dash
 		{
 			if (canJump) canJump = false; // Turn off jumping temporarily
-			currentDashTime -= Time.deltaTime; // Iterate dash timer
 			transform.forward = dashDirection; // Lock the direction the player is looking
 			moveVector = dashDirection.normalized * maxForwardSpeed * dashSpeedMultiplier; // Move forward at maxForwardSpeed * dashSpeedMultiplier
 			emissionModule.enabled = true; // Particle effect while dashing
@@ -181,7 +194,6 @@ public class Player : MonoBehaviour
 			canJump = true; // Reenable jumping after dash
 			emissionModule.rateOverTime = emissionRateOverTime; // Reset the rate of emissions
 		}
-		if (currentDashCooldownTime > 0) currentDashCooldownTime -= Time.deltaTime; // Cooldown Dash ability
 
 		// Finally, apply the moveVector to the player controller
 		moveVector.y = verticalVelocity;
@@ -204,8 +216,7 @@ public class Player : MonoBehaviour
 		// Tint the player color RED when in super mode
 		if (superMode)
 		{
-			if (currentSuperModeTime <= 0) superMode = false;
-			else currentSuperModeTime -= Time.deltaTime;
+			if (superModeTimer.IsElapsed()) superMode = false; // If superMode timer is elapsed, turn off super mode!
 			renderer.material.SetColor("_BaseColor", Color.red);
 		}
 		else renderer.material.SetColor("_BaseColor", Color.white);
@@ -248,8 +259,20 @@ public class Player : MonoBehaviour
 		// When the Quick-Load button is pressed, teleport to the latest checkpoint
 		if (Input.GetButton("Debug Reset") && lastCheckpoint != Vector3.zero)
 		{
-			transform.position = lastCheckpoint;
+			Respawn();
 		}
+	}
+
+	// Respawn at the latest reached checkpoint
+	private void Respawn()
+	{
+		transform.position = lastCheckpoint;
+	}
+
+	// Respawn at the specified location
+	private void Respawn(Vector3 respawnLocation)
+	{
+		transform.position = respawnLocation;
 	}
 
 	// Instantiate a shootable game object and invoke its Shoot() function
@@ -275,11 +298,16 @@ public class Player : MonoBehaviour
 		{
 			superMode = true;
 			Destroy(other.gameObject);
-			currentSuperModeTime = maxSuperModeTime;
+			superModeTimer.Reset(); // Turn on super mode
 		}
 		else if (other.gameObject.tag == "Respawn")
 		{
 			lastCheckpoint = other.transform.position;
+		}
+		// If the player touches water, they should respawn at the last grounded position
+		else if (other.gameObject.tag == "Water")
+		{
+			Respawn(lastGroundedPosition);
 		}
 	}
 }
