@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-class Timer : MonoBehaviour
+class Timer
 {
 	private float maxTime;
 	private float currentTime;
@@ -17,7 +17,8 @@ class Timer : MonoBehaviour
 		else currentTime = 0;
 	}
 
-	private void Update()
+	// Update this timer
+	public void Update()
 	{
 		if (currentTime > 0) currentTime -= Time.deltaTime;
 	}

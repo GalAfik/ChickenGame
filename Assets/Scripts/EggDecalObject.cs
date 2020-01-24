@@ -12,7 +12,10 @@ public class EggDecalObject : MonoBehaviour
     {
 		// Fade out over time
 		alpha -= fadeRate * Time.deltaTime;
-		GetComponent<MeshRenderer>().material.SetColor("_BaseColor", new Color(1, 1, 1, alpha));
+
+		// Change material alpha
+		Material material = GetComponent<MeshRenderer>().materials[0];
+		material.SetColor("_BaseColor", new Color(1f, 1f, 1f, alpha));
 
 		// Destroy object when it's invisible
 		if (alpha <= 0) Destroy(gameObject);

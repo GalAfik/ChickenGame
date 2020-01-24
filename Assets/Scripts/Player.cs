@@ -7,19 +7,16 @@ public class Player : MonoBehaviour
 	public float maxForwardSpeed = 3f;
 	public float maxSidewaysSpeed = 3f;
 	public float minDriftSpeed = 2f;
-	public float superMultipliler = 1.5f; // All speed-related values will be multiplied by this when super mode is enabled
 
 	// Dash variables
 	public float maxDashTime = 0.2f;
-	public float dashSpeedMultiplier = 4f;
 	public float dashCooldownTime = 1f;
-	//private float currentDashTime;
+	public float dashSpeedMultiplier = 4f;
 	private Vector3 dashDirection;
-	//private float currentDashCooldownTime;
 
 	// SuperMode variables
 	public float maxSuperModeTime = 4f; // How much time the player remains in superMode when picking up a Corn object
-	//private float currentSuperModeTime;
+	public float superMultipliler = 1.5f; // All speed-related values will be multiplied by this when super mode is enabled
 
 	// Interact variables
 	public float interactRadius = 2f; // How close does an NPC have to be to interact with the player
@@ -49,15 +46,12 @@ public class Player : MonoBehaviour
 	private Vector3 lastCheckpoint; // The latest checkpoint activated by the player
 	private Vector3 lastGroundedPosition; // Saves the player's position every second as long as they're on the ground
 	public float positionUpdateTime = .5f; // How much time to elapse between each saving of the player's position
-	//private float positionLocationTimer; // How much time to elapse between each saving of the player's position
 
 	// Power-ups
 	private bool canJump = true;
 	private bool canShoot = true;
 	private bool canGlide = true;
 	private bool canDash = true;
-	//private bool canSwim = true;
-	//private bool canBawk = true;
 	private bool superMode = false;
 
 	// Timers
@@ -181,7 +175,8 @@ public class Player : MonoBehaviour
 			// Emmit a large puff of particles to start off with
 			GetComponent<ParticleSystem>().Emit(25);
 		}
-		if (!dashTimer.IsElapsed()) // Dash
+		// Dash
+		if (!dashTimer.IsElapsed())
 		{
 			if (canJump) canJump = false; // Turn off jumping temporarily
 			transform.forward = dashDirection; // Lock the direction the player is looking
@@ -261,6 +256,12 @@ public class Player : MonoBehaviour
 		{
 			Respawn();
 		}
+
+		// Update all timers
+		dashTimer.Update();
+		dashCooldownTimer.Update();
+		superModeTimer.Update();
+		positionUpdateTimer.Update();
 	}
 
 	// Respawn at the latest reached checkpoint

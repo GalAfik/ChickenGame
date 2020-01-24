@@ -12,6 +12,7 @@ public class Egg : MonoBehaviour, Shootable
 	void Awake()
     {
 		playerObject = GameObject.FindWithTag("Player");
+		Physics.IgnoreCollision(playerObject.GetComponent<Collider>(), GetComponent<Collider>()); // Do not collide with the player object!
 	}
 
 	void Update()
