@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
 	private ParticleSystem.EmissionModule emissionModule;
 	private new Renderer renderer;
 	private ParticleSystem.MinMaxCurve emissionRateOverTime;
+	private ParticleSystem chickCollectionParticleSystem;
 
 	private Vector3 lastCheckpoint; // The latest checkpoint activated by the player
 	private Vector3 lastGroundedPosition; // Saves the player's position every second as long as they're on the ground
@@ -83,6 +84,10 @@ public class Player : MonoBehaviour
 		emissionModule = GetComponent<ParticleSystem>().emission;
 		emissionModule.enabled = false;
 		emissionRateOverTime = emissionModule.rateOverTime;
+
+		// Get particle system to be used when a chick object is collected
+		chickCollectionParticleSystem = transform.Find("ChickCollectionParticleSystem").GetComponent<ParticleSystem>();
+		chickCollectionParticleSystem.Pause();
 
 		// Zero out dash timer
 		dashTimer = new Timer(maxDashTime, false);
@@ -304,6 +309,10 @@ public class Player : MonoBehaviour
 		else if (other.gameObject.tag == "Respawn")
 		{
 			lastCheckpoint = other.transform.position;
+		}
+		else if (other.gameObject.tag == "Chick")
+		{
+			chickCollectionParticleSystem.Play();
 		}
 		// If the player touches water, they should respawn at the last grounded position
 		else if (other.gameObject.tag == "Water")

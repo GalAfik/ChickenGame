@@ -22,7 +22,7 @@ public class Chick : Follower
 
 	private void LateUpdate()
 	{
-		if (isViewing) animator.SetBool("Jump", true);
+		if (isViewing && !isFollowing) animator.SetBool("Jump", true);
 		else animator.SetBool("Jump", false);
 	}
 
@@ -31,6 +31,9 @@ public class Chick : Follower
 	{
 		if (other.gameObject.name == objectFollowing.name)
 		{
+			// Increment the number of chicks collected within the Master object
+			Master.chicksCollected++;
+			// Destroy this object
 			Destroy(gameObject);
 		}
 	}

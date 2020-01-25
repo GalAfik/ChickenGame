@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Follower.cs" />
     <Compile Include="Assets\Scripts\FollowerCamera.cs" />
     <Compile Include="Assets\Scripts\GrassController.cs" />
+    <Compile Include="Assets\Scripts\Master.cs" />
     <Compile Include="Assets\Scripts\NonPlayerCharacter.cs" />
     <Compile Include="Assets\Scripts\Patrol.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
