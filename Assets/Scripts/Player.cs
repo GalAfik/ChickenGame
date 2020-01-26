@@ -227,27 +227,23 @@ public class Player : MonoBehaviour
 		// Handle talking with NPCs
 		if (Input.GetButton("Interact") && controller.isGrounded && hasControl)
 		{
-			// Sphere cast around the player to find any NPC objects in a radius
-			RaycastHit[] objectsAroundPlayer = new RaycastHit[16];
-			objectsAroundPlayer = Physics.SphereCastAll(transform.position, interactRadius, transform.forward, 0);
-			foreach (RaycastHit hit in objectsAroundPlayer)
+			// Find all NPCs and look for the closest one
+			GameObject[] nonPlayerCharacters = GameObject.FindGameObjectsWithTag("NPC");
+			foreach (GameObject target in nonPlayerCharacters)
 			{
-				Debug.Log(hit.transform.gameObject.name);
-				// Find out if the player is facing the NPC
-				float angleToObject = Mathf.Abs(Vector3.Angle(transform.forward, hit.transform.position));
-				if (hit.transform.gameObject.tag == "NPC" && angleToObject <= interactAngle)
+				float distance = Vector3.Distance(target.transform.position, transform.position);
+				if (distance < 1)
 				{
 					// Lose control of the player temporarily
 					hasControl = false;
 					// Look at the NPC
-					transform.LookAt(hit.transform.gameObject.transform.position);
-
+					transform.LookAt(target.transform.position);
 					// Initiate conversation with the NPC character
-					hit.transform.gameObject.GetComponent<NonPlayerCharacter>().Speak();
+					target.GetComponent<NonPlayerCharacter>().Speak();
+					// Stop the player in place
+					moveVector = Vector3.zero;
 				}
 			}
-			// Stop the player in place
-			moveVector = Vector3.zero;
 		}
 
 		/* DEBUG SECTION */
