@@ -57,6 +57,7 @@ public class Dialog : MonoBehaviour
 		{
 			textDisplay.text = "";
 			continueButton.SetActive(false);
+			Master.playerHasControl = true;
 		}
 	}
 }

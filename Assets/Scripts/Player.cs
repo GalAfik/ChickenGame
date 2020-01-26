@@ -30,7 +30,6 @@ public class Player : MonoBehaviour
 	public float shootDistance = 5f; // How far the shot object should be shot
 	public GameObject projectileObject; // The game object being used as a projectile for the Shoot function
 
-	private bool hasControl = true; // Does the player have control over the character?
 	protected Vector3 moveVector; // The direction the player should move in
 	private float verticalVelocity;
 	private float minMoveDistance = .05f; // How far the mouse must be from the player before it will start moving
@@ -39,10 +38,10 @@ public class Player : MonoBehaviour
 
 	private Animator animator; // Handles animations
 	private float runAnimSpeed = .5f; // How fast the player has to be moving to start the running animation
-	private ParticleSystem.EmissionModule emissionModule;
 	private new Renderer renderer;
-	private ParticleSystem.MinMaxCurve emissionRateOverTime;
-	private ParticleSystem chickCollectionParticleSystem;
+	private ParticleSystem dustParticleSystem;
+	private ParticleSystem chicksParticleSystem;
+	private ParticleSystem superModeParticleSystem;
 
 	private Vector3 lastCheckpoint; // The latest checkpoint activated by the player
 	private Vector3 lastGroundedPosition; // Saves the player's position every second as long as they're on the ground
@@ -53,7 +52,6 @@ public class Player : MonoBehaviour
 	private bool canShoot = true;
 	private bool canGlide = true;
 	private bool canDash = true;
-	private bool superMode = false;
 
 	// Timers
 	Timer dashTimer;
@@ -81,13 +79,12 @@ public class Player : MonoBehaviour
 
 		// Start with drift effect off
 		renderer = GetComponent<SkinnedMeshRenderer>();
-		emissionModule = GetComponent<ParticleSystem>().emission;
-		emissionModule.enabled = false;
-		emissionRateOverTime = emissionModule.rateOverTime;
-
-		// Get particle system to be used when a chick object is collected
-		chickCollectionParticleSystem = transform.Find("ChickCollectionParticleSystem").GetComponent<ParticleSystem>();
-		chickCollectionParticleSystem.Pause();
+		dustParticleSystem = GetComponent<ParticleSystem>();
+		chicksParticleSystem = transform.Find("ChickCollectionParticleSystem").GetComponent<ParticleSystem>();
+		superModeParticleSystem = transform.Find("SuperModeParticleSystem").GetComponent<ParticleSystem>();
+		SetParticleSystem(dustParticleSystem, false);
+		SetParticleSystem(chicksParticleSystem, false);
+		SetParticleSystem(superModeParticleSystem, false);
 
 		// Zero out dash timer
 		dashTimer = new Timer(maxDashTime, false);
@@ -120,18 +117,18 @@ public class Player : MonoBehaviour
 		if (lookVector.magnitude >= minMoveDistance)
 		{
 			// Rotate to look at the mouse
-			if (hasControl) transform.LookAt(mousePositionInWorld);
+			if (Master.playerHasControl) transform.LookAt(mousePositionInWorld);
 			// Handle forward acceleration
-			if (!Input.GetMouseButton(1) && hasControl)
+			if (!Input.GetMouseButton(1) && Master.playerHasControl)
 				moveVector += lookVector.normalized * acceleration * Time.deltaTime; // Accelerate
 			else
 				moveVector -= moveVector.normalized * deceleration * Time.deltaTime; // Slow down using deceleration
 		}
 
 		// Temp variables for accounting for super mode multiplier
-		float tempMaxForwardSpeed = (superMode ? maxForwardSpeed * superMultipliler : maxForwardSpeed);
-		float tempMaxSidewaysSpeed = (superMode ? maxSidewaysSpeed * superMultipliler : maxSidewaysSpeed);
-		float tempMinDriftSpeed = (superMode ? minDriftSpeed * superMultipliler : minDriftSpeed);
+		float tempMaxForwardSpeed = (!superModeTimer.IsElapsed() ? maxForwardSpeed * superMultipliler : maxForwardSpeed);
+		float tempMaxSidewaysSpeed = (!superModeTimer.IsElapsed() ? maxSidewaysSpeed * superMultipliler : maxSidewaysSpeed);
+		float tempMinDriftSpeed = (!superModeTimer.IsElapsed() ? minDriftSpeed * superMultipliler : minDriftSpeed);
 
 		// Ensure that velocity does not excede max speed
 		float forwardVelocity = Mathf.Abs(Vector3.Dot(moveVector, transform.forward)); // Has to account only for hoizontal velocity and ignore vertical vel.
@@ -150,7 +147,7 @@ public class Player : MonoBehaviour
 		if (sidewaysVelocity < 0.1) sidewaysVelocity = 0; // Account for tiny decimal velocity messing with animations 
 
 		// Handle drifting
-		emissionModule.enabled = ((sidewaysVelocity >= tempMinDriftSpeed && controller.isGrounded) ? true : false); // Enable/disable drift effects
+		SetParticleSystem(dustParticleSystem, ((sidewaysVelocity >= tempMinDriftSpeed && controller.isGrounded) ? true : false)); // Enable/disable drift effects
 
 		// Handle gravity and hovering
 		if (controller.isGrounded)
@@ -186,13 +183,11 @@ public class Player : MonoBehaviour
 			if (canJump) canJump = false; // Turn off jumping temporarily
 			transform.forward = dashDirection; // Lock the direction the player is looking
 			moveVector = dashDirection.normalized * maxForwardSpeed * dashSpeedMultiplier; // Move forward at maxForwardSpeed * dashSpeedMultiplier
-			emissionModule.enabled = true; // Particle effect while dashing
-			emissionModule.rateOverTime = 100;
+			SetParticleSystem(dustParticleSystem, true);
 		}
 		else
 		{
 			canJump = true; // Reenable jumping after dash
-			emissionModule.rateOverTime = emissionRateOverTime; // Reset the rate of emissions
 		}
 
 		// Finally, apply the moveVector to the player controller
@@ -200,7 +195,7 @@ public class Player : MonoBehaviour
 		controller.Move(moveVector * Time.deltaTime);
 
 		// Check for click input to handle egg shooting mechanic
-		if (canShoot && Input.GetMouseButtonDown(0) && hasControl) Shoot(transform.forward);
+		if (canShoot && Input.GetMouseButtonDown(0) && Master.playerHasControl) Shoot(transform.forward);
 
 		// Animation variables
 		if (forwardVelocity >= runAnimSpeed || sidewaysVelocity >= runAnimSpeed) animator.SetBool("Run", true);
@@ -214,18 +209,23 @@ public class Player : MonoBehaviour
 
 		// Handle superMode timer and effects
 		// Tint the player color RED when in super mode
-		if (superMode)
+		if (!superModeTimer.IsElapsed())
 		{
-			if (superModeTimer.IsElapsed()) superMode = false; // If superMode timer is elapsed, turn off super mode!
 			renderer.material.SetColor("_BaseColor", Color.red);
+			if (!superModeParticleSystem.emission.enabled) SetParticleSystem(superModeParticleSystem, true);
 		}
-		else renderer.material.SetColor("_BaseColor", Color.white);
+		else
+		{
+			// If superMode timer is elapsed, turn off super mode!
+			renderer.material.SetColor("_BaseColor", Color.white);
+			if (superModeParticleSystem.emission.enabled) SetParticleSystem(superModeParticleSystem, false);
+		}
 
 		// Handle the player falling off the screen
 		if (transform.position.y <= -10) transform.position = lastGroundedPosition;
 
 		// Handle talking with NPCs
-		if (Input.GetButton("Interact") && controller.isGrounded && hasControl)
+		if (Input.GetButton("Interact") && controller.isGrounded && Master.playerHasControl)
 		{
 			// Find all NPCs and look for the closest one
 			GameObject[] nonPlayerCharacters = GameObject.FindGameObjectsWithTag("NPC");
@@ -235,7 +235,7 @@ public class Player : MonoBehaviour
 				if (distance < 1)
 				{
 					// Lose control of the player temporarily
-					hasControl = false;
+					Master.playerHasControl = false;
 					// Look at the NPC
 					transform.LookAt(target.transform.position);
 					// Initiate conversation with the NPC character
@@ -298,7 +298,6 @@ public class Player : MonoBehaviour
 		// Handle picking up a corn object
 		if (other.gameObject.tag == "Corn")
 		{
-			superMode = true;
 			Destroy(other.gameObject);
 			superModeTimer.Reset(); // Turn on super mode
 		}
@@ -308,12 +307,19 @@ public class Player : MonoBehaviour
 		}
 		else if (other.gameObject.tag == "Chick")
 		{
-			chickCollectionParticleSystem.Play();
+			SetParticleSystem(chicksParticleSystem, true);
+			chicksParticleSystem.Emit(50);
 		}
 		// If the player touches water, they should respawn at the last grounded position
 		else if (other.gameObject.tag == "Water")
 		{
 			Respawn(lastGroundedPosition);
 		}
+	}
+
+	private void SetParticleSystem(ParticleSystem particleSystem, bool enabled)
+	{
+		ParticleSystem.EmissionModule em = particleSystem.emission;
+		em.enabled = enabled;
 	}
 }
