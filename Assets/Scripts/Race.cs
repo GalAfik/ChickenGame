@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Race : MonoBehaviour
 {
+	public GameObject playerObject;
 	public Material ringEnabledMaterial;
 	public Material ringDisabledMaterial;
 	public int totalLaps = 1;
+
+	// Starting locations
+	public GameObject npcStartingPoint;
+	public GameObject playerStartingPoint;
 
 	private List<GameObject> rings = new List<GameObject>(); // Keeps track of the rings in order
 	private int iterator = 0; // Keeps track of the current ring objective
@@ -59,6 +64,18 @@ public class Race : MonoBehaviour
 			rings[iterator].GetComponent<BoxCollider>().enabled = true;
 			rings[iterator].transform.GetComponentInChildren<SkinnedMeshRenderer>().material = ringEnabledMaterial;
 		}
+	}
+
+	// Move the competitors to the race starting point and start the countdown, then move the npc's through the race path
+	public void StartRace(GameObject[] racers)
+	{
+		foreach (GameObject racer in racers)
+		{
+			// Move to starting location and face forward
+			StartCoroutine(Master.MoveToLocation(racer, racer.transform.position, npcStartingPoint.transform.position, npcStartingPoint.transform.forward, 1f));
+		}
+		// Move the player to the starting location and face forward
+		StartCoroutine(Master.MoveToLocation(playerObject, playerObject.transform.position, playerStartingPoint.transform.position, playerStartingPoint.transform.forward, 1f));
 	}
 
 	// Figure out if the player won the race and award them with a bonus chick

@@ -48,13 +48,14 @@ public class Master : MonoBehaviour
 		canPause = true;
 	}
 
-	public static IEnumerator MoveToLocation(GameObject gameObject, Vector3 origin, Vector3 destination, float time)
+	public static IEnumerator MoveToLocation(GameObject gameObject, Vector3 origin, Vector3 destination, Vector3 finalDirection, float time)
 	{
 		for (float i = 0; i < 1; i += Time.deltaTime/time)
 		{
 			gameObject.transform.position = Vector3.Lerp(origin, destination, i);
 			gameObject.transform.LookAt(destination);
 			yield return new WaitForEndOfFrame();
+			gameObject.transform.forward = finalDirection;
 		}
 	}
 }
