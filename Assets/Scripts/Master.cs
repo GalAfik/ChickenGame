@@ -21,6 +21,9 @@ public class Master : MonoBehaviour
 		playerHasControl = true;
 		paused = false;
 		canPause = true;
+
+		// Set Cursor to not be visible
+		Cursor.visible = false;
 	}
 
 	private void Update()
@@ -43,5 +46,15 @@ public class Master : MonoBehaviour
 		canPause = false;
 		yield return new WaitForSecondsRealtime(pauseDelaySeconds); // Have to use WaitForSecondsRealtime because time is stopped when pausing!
 		canPause = true;
+	}
+
+	public static IEnumerator MoveToLocation(GameObject gameObject, Vector3 origin, Vector3 destination, float time)
+	{
+		for (float i = 0; i < 1; i += Time.deltaTime/time)
+		{
+			gameObject.transform.position = Vector3.Lerp(origin, destination, i);
+			gameObject.transform.LookAt(destination);
+			yield return new WaitForEndOfFrame();
+		}
 	}
 }

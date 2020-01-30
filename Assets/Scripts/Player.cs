@@ -74,9 +74,6 @@ public class Player : MonoBehaviour
 		// Set running animation speed to half of max speed
 		runAnimSpeed *= maxForwardSpeed;
 
-		// Set Cursor to not be visible
-		Cursor.visible = false;
-
 		// Start with drift effect off
 		renderer = GetComponent<SkinnedMeshRenderer>();
 		dustParticleSystem = GetComponent<ParticleSystem>();

@@ -11,6 +11,7 @@ public class NonPlayerCharacter : MonoBehaviour
 	public Race[] challanges;
 
 	private int currentChallange;
+	private Transform startingPoint; // The starting location for the current challange
 
 	private void Start()
 	{
@@ -22,6 +23,16 @@ public class NonPlayerCharacter : MonoBehaviour
 			{
 				if (challange != null) challange.gameObject.SetActive(false);
 			}
+			// Get the current starting position
+			startingPoint = challanges[currentChallange].transform.Find("NPCStartingPoint");
+		}
+	}
+
+	private void Update()
+	{
+		if (Vector3.Distance(transform.position, startingPoint.position) <= 0.05f)
+		{
+			transform.forward = startingPoint.forward;
 		}
 	}
 
@@ -32,9 +43,8 @@ public class NonPlayerCharacter : MonoBehaviour
 		{
 			challanges[currentChallange].gameObject.SetActive(true);
 			// Move to starting location and face forward
-			Transform startingPoint = challanges[currentChallange].transform.Find("NPCStartingPoint");
-			transform.position = startingPoint.position;
-			transform.forward = startingPoint.forward;
+			startingPoint = challanges[currentChallange].transform.Find("NPCStartingPoint");
+			StartCoroutine(Master.MoveToLocation(gameObject, transform.position, startingPoint.position, 1f));
 		}
 	}
 }

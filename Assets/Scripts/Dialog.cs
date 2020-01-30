@@ -39,6 +39,7 @@ public class Dialog : MonoBehaviour
 		if (textDisplay.text == sentences[index])
 		{
 			continueButton.SetActive(true);
+			Cursor.visible = true;
 		}
 	}
 
@@ -46,6 +47,7 @@ public class Dialog : MonoBehaviour
 	{
 		// Disable the continue button after it is clicked, until the sentence is done
 		continueButton.SetActive(false);
+		Cursor.visible = false;
 
 		if (index < sentences.Length - 1)
 		{

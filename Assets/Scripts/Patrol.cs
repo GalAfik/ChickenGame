@@ -46,6 +46,5 @@ public class Patrol : MonoBehaviour
 		}
 		// Always face the next destination
 		transform.LookAt(destination);
-		transform.forward = -transform.forward; // For some reason, the mesh on tractors are reversed...
 	}
 }

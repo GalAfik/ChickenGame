@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\Ring.cs" />
     <Compile Include="Assets\Scripts\Shootable.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
+    <Compile Include="Assets\Scripts\Tractor.cs" />
     <Compile Include="Assets\Store Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\Store Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Store Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
